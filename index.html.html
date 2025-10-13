@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>মাইশা, তোমার জন্য</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #ff6b93;
+            --secondary: #ff9a8b;
+            --accent: #ff8eb4;
+            --light: #fff5f7;
+            --dark: #5a3e36;
+            --shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #ffafbd, #ffc3a0, #ffdde1);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: var(--dark);
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 15px;
+        }
+        
+        .page {
+            width: 100%;
+            min-height: 85vh;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px 15px;
+        }
+        
+        .page.active {
+            display: flex;
+            animation: fadeIn 0.8s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .header {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .typewriter {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            min-height: 80px;
+            color: var(--dark);
+            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 2px dashed var(--primary);
+        }
+        
+        .message-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            padding: 25px;
+            margin: 15px 0;
+            box-shadow: var(--shadow);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            width: 95%;
+            max-width: 500px;
+            border: 3px solid var(--primary);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .message-card::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff6b93"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center;
+            background-size: contain;
+        }
+        
+        .short-content {
+            font-style: italic;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px dotted var(--accent);
+            color: #9c6859;
+            font-weight: 600;
+        }
+        
+        .bullet-points {
+            text-align: left;
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+        
+        .bullet-points li {
+            margin-bottom: 12px;
+            padding-left: 10px;
+            position: relative;
+        }
+        
+        .bullet-points li::before {
+            content: "❤️";
+            position: absolute;
+            left: -20px;
+            top: 2px;
+        }
+        
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            width: 100%;
+            z-index: 20;
+            position: relative;
+        }
+        
+        .btn {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 16px 32px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 10px 0;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(255, 107, 147, 0.5);
+            transition: all 0.3s ease;
+            min-width: 220px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(255, 107, 147, 0.7);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(to right, #6a89cc, #82ccdd);
+            box-shadow: 0 6px 15px rgba(106, 137, 204, 0.5);
+        }
+        
+        .btn-tertiary {
+            background: linear-gradient(to right, #e55039, #eb7e63);
+            box-shadow: 0 6px 15px rgba(229, 80, 57, 0.5);
+        }
+        
+        .character {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 200px;
+            z-index: 5;
+            transition: all 0.5s ease;
+        }
+        
+        .character img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 -5px 10px rgba(0,0,0,0.2));
+        }
+        
+        .heart {
+            font-size: 3rem;
+            color: var(--primary);
+            margin: 20px 0;
+            animation: heartbeat 1.5s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255, 107, 147, 0.5);
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .ring {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #fff, #f5f5f5);
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+            margin: 20px auto;
+            position: relative;
+            animation: sparkle 2s infinite alternate;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 3px solid #ffd700;
+        }
+        
+        .ring::before {
+            content: "💍";
+            font-size: 3rem;
+        }
+        
+        @keyframes sparkle {
+            0% { 
+                box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+                transform: rotate(0deg);
+            }
+            100% { 
+                box-shadow: 0 0 30px rgba(255, 215, 0, 0.9), 0 0 40px rgba(255, 215, 0, 0.5);
+                transform: rotate(5deg);
+            }
+        }
+        
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        
+        .heart-particle {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.7;
+            animation: float 8s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .answer-branch {
+            display: none;
+        }
+        
+        .answer-branch.active {
+            display: block;
+        }
+        
+        .progress-dots {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            position: relative;
+            z-index: 15;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            margin: 0 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .dot.active {
+            background: var(--primary);
+            transform: scale(1.3);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 380px) {
+            .typewriter {
+                font-size: 1.2rem;
+            }
+            
+            .message-card {
+                font-size: 1rem;
+                padding: 20px;
+            }
+            
+            .btn {
+                padding: 14px 28px;
+                font-size: 1.1rem;
+                min-width: 200px;
+            }
+            
+            .character {
+                width: 150px;
+                height: 170px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-hearts" id="hearts-container"></div>
+    
+    <div class="container">
+        <!-- Page 1: উপহার -->
+        <div class="page active" id="page1">
+            <div class="header">
+                <div class="typewriter" id="typewriter1"></div>
+            </div>
+            <div class="message-card">
+                জীবনকে সাধারণ থেকে অসাধারণ করে তোলে কিছু মুহূর্ত। আর তুমি এসেই আমার সেই মুহূর্তগুলোকে করে তুলেছো স্বপ্নের মতন। এই পাতাটা শুধু একটি ওয়েবপেজ নয়, এটা হল আমার হৃদয়ের একটি খোলা চিঠি, যেখানে গুছিয়ে বলার চেষ্টা করেছি তুমি আমার জন্য কতটা মূল্যবান। এই উপহারটির ভেতর লুকিয়ে আছে আমার সবচেয়ে গভীর অনুভূতি আর সেই প্রশ্ন, যা শুধু তোমাকেই জিজ্ঞেস করতে চাই।
+                <div class="short-content">
+                    "মাইশা, তুমি আমার প্রতিদিনের সবচেয়ে সুন্দর অনুভূতি। এই যাত্রাটা শুরু করবে?"
+                </div>
+            </div>
+            <div class="btn-container">
+                <button class="btn" id="btn-page1">উপহারটা খুলি? 🎁</button>
+            </div>
+        </div>
+        
+        <!-- Page 2: স্মৃতি -->
+        <div class="page" id="page2">
+            <div class="header">
+                <div class="typewriter" id="typewriter2"></div>
+            </div>
+            <div class="message-card">
+                প্রথম দেখা হওয়ার সেই মুহূর্তটা এখনও আমার মনের পর্দায় ভিডিওর মতো চলে। তোমার হাসিতে যেন সবকিছু থেমে গিয়েছিল। তোমার কথার সুর, লাজুক ভঙ্গি — সব মিলিয়ে একটা অদ্ভুত ভালোলাগা কাজ করেছিল। এরপর আমাদের প্রতিটা দেখা, প্রতিটা কথোপকথন, কফির কাপে চুমুক দেয়ার মুহূর্ত, কিংবা হঠাৎ বৃষ্টিতে ভিজে যাওয়া — এই ছোট ছোট স্মৃতিগুলোই আমার জীবনের সবচেয়ে দামি সম্পদ হয়ে গেছে।
+                <div class="bullet-points">
+                    <li><strong>প্রথম দেখা:</strong> আমার জীবনের সবচেয়ে সুন্দর 'অ্যাক্সিডেন্ট'।</li>
+                    <li><strong>প্রথম কথা:</strong> আমার নীরবতা ভেঙে দেয়া একটি সুর।</li>
+                    <li><strong>তোমার উপস্থিতি:</strong> আমার অসম্পূর্ণ জীবনকে পূর্ণ করার শুরু।</li>
+                </div>
+            </div>
+            <div class="btn-container">
+                <button class="btn" id="btn-page2">পরের স্মৃতিটা দেখি? 💫</button>
+            </div>
+        </div>
+        
+        <!-- Page 3: তুমি কেন বিশেষ -->
+        <div class="page" id="page3">
+            <div class="header">
+                <div class="typewriter" id="typewriter3"></div>
+            </div>
+            <div class="message-card">
+                মাইশা, আমি তোমাকে ভালোবাসি শুধু তুমি বলে নয়, ভালোবাসি তোমার ভেতরের সেই মানুষটার জন্য...
+                <div class="bullet-points">
+                    <li>যে অল্পতেই হেসে ওঠে, যার হাসিতে আমার সমস্ত ক্লান্তি উধাও হয়ে যায়।</li>
+                    <li>যে অন্যায় দেখলে না থেমে থেকে, সত্যের পক্ষে দাঁড়ায়।</li>
+                    <li>যার সামনে থাকলে পৃথিবীটা একদম শান্ত, একদম নিরাপদ লাগে।</li>
+                </div>
+                তুমি যখন আমার জন্য চা বানাও, কিংবা হঠাৎ করেই 'কেমন আছ?' বলে মেসেজ দাও — এই ছোট ছোট জিনিসগুলোই আমাকে বারবার মনে করিয়ে দেয়, আমি কতটা ভাগ্যবান।
+                <div class="short-content">
+                    <div>তোমার <strong>হাসি</strong> = আমার শক্তি</div>
+                    <div>তোমার <strong>কণ্ঠস্বর</strong> = আমার প্রিয় গান</div>
+                    <div>তোমার <strong>স্নেহ</strong> = আমার নিরাপদ আশ্রয়</div>
+                </div>
+            </div>
+            <div class="btn-container">
+                <button class="btn" id="btn-page3">আরও জানাও আমার সম্পর্কে ✨</button>
+            </div>
+        </div>
+        
+        <!-- Page 4: তুমি হাসলে -->
+        <div class="page" id="page4">
+            <div class="header">
+                <div class="typewriter" id="typewriter4"></div>
+            </div>
+            <div class="message-card">
+                চোখ বন্ধ করে ভাবো... আমার জন্য তোমার হাসিটাই হল সকালের প্রথম রোদ। তোমার ছোটখাটো আবদার, হঠাৎ গান গেয়ে ওঠা, কিংবা রাগ করে মুখ ঘুরিয়ে নেয়া — জীবনের পাতায় এগুলোই যেন সোনালি হরফে লেখা স্মৃতি। তোমার চোখের দিকে তাকালে আমি আমাদের ভবিষ্যৎ দেখতে পাই — একসাথে গড়ে তোলা একটি ঘর, ভরা অসীম ভালোবাসা আর অফুরান্ত হাসিতে।
+                <div class="short-content">
+                    "তুমি যখন পাশে থাকো, আমার হৃদয় বলে — 'এখানেই আমার ঘর'। আমার ছোট ছোট, সাধারণ কথাগুলোও তুমি যে গুরুত্ব দিয়ে শোনো, সেটাই আমার কাছে পৃথিবীর সবচেয়ে বড় উপহার।"
+                </div>
+            </div>
+            <div class="btn-container">
+                <button class="btn" id="btn-page4">আমি শুনছি... 💖</button>
+            </div>
+        </div>
+        
+        <!-- Page 5: প্রতিশ্রুতি -->
+        <div class="page" id="page5">
+            <div class="header">
+                <div class="typewriter" id="typewriter5"></div>
+            </div>
+            <div class="message-card">
+                মাইশা, আমি প্রতিশ্রুতি দিচ্ছি...
+                আমি প্রতিদিন তোমাকে আরও বেশি করে বুঝতে ও ভালোবাসতে চেষ্টা করব। তোমার সব স্বপ্নকে আমার স্বপ্ন মনে করব। তোমার দুঃখ-কষ্ট ভাগ করে নেব, আর তোমার সুখে উচ্ছ্বসিত হয়ে উঠব। ছোটখাটো তর্কে অহংকার করব না, বরং প্রথমে কথা বলব। আমাদের সম্পর্কটা যেন একটা শান্ত নদীর মতো হয় — স্থির, গভীর এবং চিরকাল বহমান।
+                <div class="bullet-points">
+                    <li><strong>শ্রদ্ধা:</strong> আমি সর্বদা তোমার ব্যক্তিত্ব ও সিদ্ধান্তকে শ্রদ্ধা করব।</li>
+                    <li><strong>সময়:</strong> জীবনের প্রতিটি ছোট-বড় মুহূর্তে আমি তোমার পাশে থাকব।</li>
+                    <li><strong>ভালোবাসা:</strong> প্রতিদিনই তোমাকে নতুন করে ভালোবাসব, আগের চেয়েও বেশি করে।</li>
+                </div>
+            </div>
+            <div class="btn-container">
+                <button class="btn" id="btn-page5">পরের পাতায় যাই? 🌟</button>
+            </div>
+        </div>
+        
+        <!-- Page 6: কেন তুমি? -->
+        <div class="page" id="page6">
+            <div class="header">
+                <div class="typewriter" id="typewriter6"></div>
+            </div>
+            <div class="message-card">
+                তুমি যদি আজ问我 'কেন?' — আমি বলব:
+                <div class="bullet-points">
+                    <li><strong>কারণ</strong> আমি তোমাকে গভীরভাবে বুঝতে চাই।</li>
+                    <li><strong>কারণ</strong> আমি তোমার প্রতিটি হারানো হাসি ফিরিয়ে আনতে চাই।</li>
+                    <li><strong>কারণ</strong> আমি তোমার কঠিন দিনগুলোকে সহজ করে তুলতে চাই।</li>
+                    <li><strong>কারণ</strong> আমি তোমার ছোট-বড় সব সাফল্য একসাথে উদযাপন করতে চাই।</li>
+                </div>
+                আমি শুধু তোমার প্রেমিকই নই, হতে চাই তোমার সেরা বন্ধু, সবচেয়ে বড় সমর্থক এবং জীবনের প্রতিটি পদক্ষেপে বিশ্বস্ত সঙ্গী।
+            </div>
+            <div class="btn-container">
+                <button class="btn" id="btn-page6">এবারে সেই প্রশ্নটি... ❤️</button>
+            </div>
+        </div>
+        
+        <!-- Page 7: বড় প্রশ্ন -->
+        <div class="page" id="page7">
+            <div class="header">
+                <div class="typewriter" id="typewriter7"></div>
+            </div>
+            <div class="ring"></div>
+            <div class="message-card">
+                "মাইশা, জীবন মানে শুধু বেঁচে থাকা নয়, বেঁচে থাকার অর্থ খুঁজে পাওয়া। আর তুমিই আমার জীবনের অর্থ। তুমি কি আমার হাত ধরে এই সুন্দর যাত্রাটা একসাথে কাটাবে? সারাজীবনের জন্য?"
+                <div class="short-content">
+                    "এই ছোট্ট রিংটি শুধু একটি প্রতীক, আমার প্রতিশ্রুতির। তুমি কি তা গ্রহণ করবে?"
+                </div>
+            </div>
+            <div class="btn-container">
+                <button class="btn" id="btn-yes">হ্যাঁ, এক লক্ষ্য বার! 💍</button>
+                <button class="btn btn-secondary" id="btn-maybe">আমাকে একটু সময় দাও... ⏳</button>
+                <button class="btn btn-tertiary" id="btn-no">আমি পারবো না... 😔</button>
+            </div>
+        </div>
+        
+        <!-- Page 8: উত্তর -->
+        <div class="page" id="page8">
+            <!-- হ্যাঁ উত্তর -->
+            <div class="answer-branch" id="yes-answer">
+                <div class="header">
+                    <div class="typewriter" id="typewriter8-yes"></div>
+                </div>
+                <div class="heart">❤️</div>
+                <div class="message-card">
+                    এই একটি শব্দ আমার সমস্ত স্বপ্নকে সত্যি করে দিল! আমি আমার পুরো জীবন দিয়ে প্রমাণ করব তুমি আজ সঠিক সিদ্ধান্ত নিয়েছ। আমাদের এই নতুন যাত্রার শুরুটা কি আমরা আজই একটা ছোট্ট আয়োজন দিয়ে করব? আমি তো এখনই উড়ে যেতে পারি তোমার কাছে!
+                </div>
+                <div class="btn-container">
+                    <button class="btn" id="btn-restart-yes">চলো, আমাদের গল্প শুরু হোক! 🥂</button>
+                </div>
+            </div>
+            
+            <!-- সময় চাই উত্তর -->
+            <div class="answer-branch" id="maybe-answer">
+                <div class="header">
+                    <div class="typewriter" id="typewriter8-maybe"></div>
+                </div>
+                <div class="message-card">
+                    এটি একটি খুব বড় সিদ্ধান্ত, এবং আমি সম্পূর্ণরূপে শ্রদ্ধা করি যে তোমার সময় প্রয়োজন। তুমি যত সময়ই নাও না কেন, আমি ধৈর্য্য সহকারে অপেক্ষায় থাকব। যখনই তুমি প্রস্তুত হবে, আমাকে জানাবে। আমার অনুভূতিতে কোন পরিবর্তন আসবে না।
+                </div>
+                <div class="btn-container">
+                    <button class="btn" id="btn-restart-maybe">বুঝেছি, কথা হবে পরে 💬</button>
+                </div>
+            </div>
+            
+            <!-- না উত্তর -->
+            <div class="answer-branch" id="no-answer">
+                <div class="header">
+                    <div class="typewriter" id="typewriter8-no"></div>
+                </div>
+                <div class="message-card">
+                    এটি শুনে আমার heartbroken, কিন্তু আমি তোমার সৎ উত্তরটির প্রতি গভীরভাবে শ্রদ্ধা জানাই। আমি আমাদের shared memories গুলোকে সর্বদা লালন করব। যদি তুমি ever change your mind, আমি শুনতে চাই। নতুবা, I wish you nothing but happiness.
+                </div>
+                <div class="btn-container">
+                    <button class="btn" id="btn-restart-no">বিদায় 💔</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- কার্টুন কারakter -->
+        <div class="character">
+            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><circle cx='100' cy='60' r='40' fill='%23ffb6c1'/><circle cx='85' cy='50' r='5' fill='black'/><circle cx='115' cy='50' r='5' fill='black'/><path d='M90 75 Q100 85 110 75' stroke='black' stroke-width='3' fill='none'/><path d='M60 120 Q100 180 140 120' fill='%23ff69b4'/><circle cx='70' cy='40' r='10' fill='%23ffb6c1'/><circle cx='130' cy='40' r='10' fill='%23ffb6c1'/></svg>" alt="Cute Anime Girl">
+        </div>
+        
+        <!-- Progress Dots -->
+        <div class="progress-dots" id="progressDots"></div>
+    </div>
+
+    <script>
+        // টাইপার টেক্সট সংজ্ঞা
+        const typewriterTexts = {
+            1: "মাইশা... আমার জন্য একটু সময় আছে? একটা খুব ছোট, কিন্তু খুব বিশেষ উপহার তোমার জন্য অপেক্ষা করছে...",
+            2: "সেই দিনটা... মনে আছে? আমার整个世界 (পুরো দুনিয়া) যেন এক পলকে থেমে গিয়েছিল...",
+            3: "তোমার ছোট ছোট ব্যাপারগুলো... আমার কাছে বিশাল অর্থ নিয়ে আসে...",
+            4: "তুমি যখন হাসো... আমার সমস্ত ব্যথা-ক্লান্তি যেন ঘুমিয়ে পড়ে...",
+            5: "আমি কথা দিচ্ছি... তোমার হাসি কখনো ম্লান হতে দেব না...",
+            6: "কারণ... দুনিয়াতে তোমার মতো কেউ নেই...",
+            7: "মাইশা... তুমি কি আমার জীবনসঙ্গী হবে?",
+            "8-yes": "ওহ! তুমি বললে 'হ্যাঁ'! আমার整个世界 (পুরো দুনিয়া) আজ রঙিন হয়ে গেল!",
+            "8-maybe": "আমি বুঝতে পারি... আমি অপেক্ষা করব।",
+            "8-no": "আমি তোমার সততা মূল্য দিই... ধন্যবাদ বলার জন্য।"
+        };
+        
+        // বর্তমান পেজ ট্র্যাক করা
+        let currentPage = 1;
+        const totalPages = 7;
+        
+        // হার্ট পার্টিকেল তৈরি
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const heartCount = 15;
+            
+            for (let i = 0; i < heartCount; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart-particle';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 8 + 's';
+                heart.style.fontSize = (Math.random() * 1 + 1) + 'rem';
+                container.appendChild(heart);
+            }
+        }
+        
+        // প্রোগ্রেস ডট তৈরি
+        function createProgressDots() {
+            const container = document.getElementById('progressDots');
+            
+            for (let i = 1; i <= totalPages; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'dot' + (i === 1 ? ' active' : '');
+                dot.setAttribute('data-page', i);
+                container.appendChild(dot);
+            }
+        }
+        
+        // প্রোগ্রেস ডট আপডেট
+        function updateProgressDots(pageNum) {
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach(dot => {
+                dot.classList.remove('active');
+                if (parseInt(dot.getAttribute('data-page')) === pageNum) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+        
+        // পেজ দেখানোর ফাংশন
+        function showPage(pageNum) {
+            // সব পেজ লুকান
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // নতুন পেজ দেখান
+            document.getElementById(`page${pageNum}`).classList.add('active');
+            currentPage = pageNum;
+            
+            // প্রোগ্রেস ডট আপডেট করুন
+            updateProgressDots(pageNum);
+            
+            // নতুন পেজের জন্য টাইপার শুরু করুন
+            startTypewriter(pageNum);
+            
+            // কার্টুন অ্যানিমেশন
+            animateCharacter();
+        }
+        
+        // উত্তর দেখানোর ফাংশন
+        function showAnswer(answer) {
+            // সব পেজ লুকান
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // উত্তর পৃষ্ঠা দেখান
+            document.getElementById('page8').classList.add('active');
+            currentPage = 8;
+            
+            // প্রোগ্রেস ডট লুকান
+            document.getElementById('progressDots').style.display = 'none';
+            
+            // সংশ্লিষ্ট উত্তর শাখা দেখান
+            document.getElementById('yes-answer').classList.remove('active');
+            document.getElementById('maybe-answer').classList.remove('active');
+            document.getElementById('no-answer').classList.remove('active');
+            
+            document.getElementById(`${answer}-answer`).classList.add('active');
+            
+            // সংশ্লিষ্ট টাইপার শুরু করুন
+            startTypewriter(`8-${answer}`);
+            
+            // বিশেষ অ্যানিমেশন
+            if (answer === 'yes') {
+                createFireworks();
+            }
+        }
+        
+        // টাইপার অ্যানিমেশন ফাংশন
+        function startTypewriter(pageNum) {
+            const typewriterElement = document.getElementById(`typewriter${pageNum}`);
+            const text = typewriterTexts[pageNum];
+            
+            if (!typewriterElement || !text) return;
+            
+            typewriterElement.innerHTML = '';
+            let i = 0;
+            const speed = 50; // মিলিসেকেন্ড প্রতি অক্ষর
+            
+            function typeWriter() {
+                if (i < text.length) {
+                    typewriterElement.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+                }
+            }
+            
+            typeWriter();
+        }
+        
+        // কার্টুন অ্যানিমেশন
+        function animateCharacter() {
+            const character = document.querySelector('.character');
+            character.style.transform = 'translateX(-50%) scale(1.1)';
+            setTimeout(() => {
+                character.style.transform = 'translateX(-50%) scale(1)';
+            }, 300);
+        }
+        
+        // ফায়ারওয়ার্কস তৈরি (হ্যাঁ উত্তরের জন্য)
+        function createFireworks() {
+            const container = document.getElementById('hearts-container');
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const firework = document.createElement('div');
+                    firework.className = 'heart-particle';
+                    firework.innerHTML = '✨';
+                    firework.style.left = Math.random() * 100 + 'vw';
+                    firework.style.animationDelay = '0s';
+                    firework.style.animationDuration = (Math.random() * 2 + 1) + 's';
+                    firework.style.fontSize = (Math.random() * 1 + 1) + 'rem';
+                    container.appendChild(firework);
+                    
+                    setTimeout(() => {
+                        firework.remove();
+                    }, 3000);
+                }, i * 100);
+            }
+        }
+        
+        // যাত্রা পুনরায় শুরু করার ফাংশন
+        function restartJourney() {
+            // সব পেজ লুকান
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // প্রথম পৃষ্ঠা দেখান
+            document.getElementById('page1').classList.add('active');
+            currentPage = 1;
+            
+            // প্রোগ্রেস ডট দেখান এবং আপডেট করুন
+            document.getElementById('progressDots').style.display = 'flex';
+            updateProgressDots(1);
+            
+            // প্রথম পৃষ্ঠার টাইপার পুনরায় শুরু করুন
+            startTypewriter(1);
+        }
+        
+        // পেজ লোড হলে ইভেন্ট লিসেনার সেটআপ করুন
+        document.addEventListener('DOMContentLoaded', function() {
+            createHearts();
+            createProgressDots();
+            startTypewriter(1);
+            
+            // বাটন ইভেন্ট লিসেনার যোগ করুন
+            document.getElementById('btn-page1').addEventListener('click', () => showPage(2));
+            document.getElementById('btn-page2').addEventListener('click', () => showPage(3));
+            document.getElementById('btn-page3').addEventListener('click', () => showPage(4));
+            document.getElementById('btn-page4').addEventListener('click', () => showPage(5));
+            document.getElementById('btn-page5').addEventListener('click', () => showPage(6));
+            document.getElementById('btn-page6').addEventListener('click', () => showPage(7));
+            
+            // উত্তর বাটন
+            document.getElementById('btn-yes').addEventListener('click', () => showAnswer('yes'));
+            document.getElementById('btn-maybe').addEventListener('click', () => showAnswer('maybe'));
+            document.getElementById('btn-no').addEventListener('click', () => showAnswer('no'));
+            
+            // রিস্টার্ট বাটন
+            document.getElementById('btn-restart-yes').addEventListener('click', restartJourney);
+            document.getElementById('btn-restart-maybe').addEventListener('click', restartJourney);
+            document.getElementById('btn-restart-no').addEventListener('click', restartJourney);
+        });
+    </script>
+</body>
+</html>
