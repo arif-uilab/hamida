@@ -3,164 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>মাইশা, তোমার জন্য</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Dear Hamida - একটা ক্ষমা, মন থেকে...</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* Base Styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         :root {
-            --primary: #ff6b93;
-            --secondary: #ff9a8b;
-            --accent: #ff8eb4;
-            --light: #fff5f7;
-            --dark: #5a3e36;
-            --shadow: 0 10px 20px rgba(0,0,0,0.1);
+            --soft-pink: #ffdce0;
+            --soft-pink-dark: #f8c8ce;
+            --warm-white: #fff9f9;
+            --pastel-blue: #b3d4fc;
+            --pastel-blue-light: #d4e6ff;
+            --accent-color: #d3546d;
+            --accent-dark: #c44569;
+            --text-color: #444444;
+            --text-light: #666666;
+        }
+        
+        html {
+            scroll-behavior: smooth;
         }
         
         body {
-            background: linear-gradient(135deg, #ffafbd, #ffc3a0, #ffdde1);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            color: var(--dark);
-            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--soft-pink) 0%, var(--warm-white) 50%, var(--pastel-blue-light) 100%);
+            color: var(--text-color);
+            line-height: 1.6;
             min-height: 100vh;
-            padding-bottom: 100px;
+            padding: 0;
+            margin: 0;
+            position: relative;
+            overflow-x: hidden;
         }
         
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* Subtle background pattern */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 25%),
+                radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 25%);
+            pointer-events: none;
+            z-index: -1;
         }
         
         .container {
-            max-width: 100%;
-            padding: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
         }
         
-        .page {
-            width: 100%;
-            min-height: 85vh;
-            display: none;
+        section {
+            min-height: 100vh;
+            display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 40px 20px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease, transform 1s ease;
+            position: relative;
+        }
+        
+        section.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        h1, h2 {
+            font-family: 'Dancing Script', cursive;
             text-align: center;
-            padding: 20px 15px;
-        }
-        
-        .page.active {
-            display: flex;
-            animation: fadeIn 0.8s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .header {
-            margin-bottom: 20px;
-            position: relative;
-        }
-        
-        .typewriter {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            min-height: 80px;
-            color: var(--dark);
-            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
-            background: rgba(255, 255, 255, 0.7);
-            padding: 15px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-            border: 2px dashed var(--primary);
-        }
-        
-        .message-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 25px;
-            padding: 25px;
-            margin: 15px 0;
-            box-shadow: var(--shadow);
-            font-size: 1.1rem;
-            line-height: 1.6;
-            width: 95%;
-            max-width: 500px;
-            border: 3px solid var(--primary);
-            position: relative;
-            z-index: 10;
-        }
-        
-        .message-card::before {
-            content: "";
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 40px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ff6b93"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>') no-repeat center;
-            background-size: contain;
-        }
-        
-        .short-content {
-            font-style: italic;
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 2px dotted var(--accent);
-            color: #9c6859;
+            margin-bottom: 30px;
             font-weight: 600;
         }
         
-        .bullet-points {
-            text-align: left;
-            margin: 15px 0;
-            padding-left: 20px;
-        }
-        
-        .bullet-points li {
-            margin-bottom: 12px;
-            padding-left: 10px;
+        h1 {
+            font-size: 3.5rem;
+            color: var(--accent-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
             position: relative;
+            display: inline-block;
         }
         
-        .bullet-points li::before {
-            content: "❤️";
+        h1::after {
+            content: '';
             position: absolute;
-            left: -20px;
-            top: 2px;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--soft-pink), var(--accent-color), var(--pastel-blue));
+            border-radius: 3px;
         }
         
-        .btn-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 20px;
-            width: 100%;
-            z-index: 20;
-            position: relative;
+        h2 {
+            font-size: 2.8rem;
+            color: var(--accent-color);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            text-align: center;
+            max-width: 600px;
         }
         
         .btn {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 50px;
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-dark));
             color: white;
-            padding: 16px 32px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin: 10px 0;
+            padding: 14px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 20px;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 20px rgba(211, 84, 109, 0.3);
+            border: none;
             cursor: pointer;
-            box-shadow: 0 6px 15px rgba(255, 107, 147, 0.5);
-            transition: all 0.3s ease;
-            min-width: 220px;
+            font-family: 'Poppins', sans-serif;
             position: relative;
             overflow: hidden;
             z-index: 1;
@@ -170,581 +143,581 @@
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 100%;
+            left: 0;
+            width: 0%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: 0.5s;
+            background: linear-gradient(135deg, var(--accent-dark), #a83257);
+            transition: all 0.4s ease;
             z-index: -1;
-        }
-        
-        .btn:hover::before {
-            left: 100%;
+            border-radius: 50px;
         }
         
         .btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(255, 107, 147, 0.7);
+            box-shadow: 0 10px 25px rgba(211, 84, 109, 0.4);
         }
         
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(to right, #6a89cc, #82ccdd);
-            box-shadow: 0 6px 15px rgba(106, 137, 204, 0.5);
-        }
-        
-        .btn-tertiary {
-            background: linear-gradient(to right, #e55039, #eb7e63);
-            box-shadow: 0 6px 15px rgba(229, 80, 57, 0.5);
-        }
-        
-        .character {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 180px;
-            height: 200px;
-            z-index: 5;
-            transition: all 0.5s ease;
-        }
-        
-        .character img {
+        .btn:hover::before {
             width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0 -5px 10px rgba(0,0,0,0.2));
         }
         
-        .heart {
-            font-size: 3rem;
-            color: var(--primary);
-            margin: 20px 0;
-            animation: heartbeat 1.5s ease-in-out infinite;
-            text-shadow: 0 0 10px rgba(255, 107, 147, 0.5);
+        /* Home Page Styles */
+        .home {
+            text-align: center;
         }
         
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            25% { transform: scale(1.1); }
-            50% { transform: scale(1); }
-            75% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+        .tagline {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            color: var(--accent-color);
+            font-weight: 500;
         }
         
-        .ring {
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #fff, #f5f5f5);
-            box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
-            margin: 20px auto;
+        .home p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        /* About Page Styles */
+        .timeline {
+            margin-top: 30px;
+            width: 100%;
+            max-width: 600px;
             position: relative;
-            animation: sparkle 2s infinite alternate;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 3px solid #ffd700;
         }
         
-        .ring::before {
-            content: "💍";
-            font-size: 3rem;
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--soft-pink), var(--accent-color), var(--pastel-blue));
+            border-radius: 2px;
         }
         
-        @keyframes sparkle {
-            0% { 
-                box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
-                transform: rotate(0deg);
-            }
-            100% { 
-                box-shadow: 0 0 30px rgba(255, 215, 0, 0.9), 0 0 40px rgba(255, 215, 0, 0.5);
-                transform: rotate(5deg);
-            }
+        .timeline-item {
+            margin-bottom: 40px;
+            padding-left: 30px;
+            position: relative;
+            transition: transform 0.3s ease;
         }
         
-        .floating-hearts {
-            position: fixed;
+        .timeline-item:hover {
+            transform: translateX(10px);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            left: -8px;
+            top: 5px;
+            box-shadow: 0 0 0 4px rgba(211, 84, 109, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover::before {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 6px rgba(211, 84, 109, 0.3);
+        }
+        
+        .timeline-date {
+            font-weight: 600;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .timeline-item p {
+            text-align: left;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Mistake Page Styles */
+        .mistake-highlight {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 248, 248, 0.9));
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mistake-highlight::before {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: 1;
+            background: linear-gradient(135deg, rgba(211, 84, 109, 0.03), rgba(179, 212, 252, 0.03));
+            z-index: -1;
+        }
+        
+        /* Letter Page Styles */
+        .letter-container {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 248, 248, 0.9));
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            max-width: 600px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .letter-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(to right, var(--soft-pink), var(--accent-color), var(--pastel-blue));
+        }
+        
+        .letter-container::after {
+            content: '';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 60px;
+            height: 60px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d3546d' opacity='0.1'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        
+        .letter-container p {
+            text-align: left;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        /* Final Page Styles */
+        .final-message {
+            text-align: center;
+            max-width: 600px;
+        }
+        
+        .promise {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(248, 248, 255, 0.9));
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            font-style: italic;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(211, 84, 109, 0.1);
+            position: relative;
+        }
+        
+        .promise::before, .promise::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--accent-color);
+            opacity: 0.2;
+            position: absolute;
+        }
+        
+        .promise::before {
+            top: 10px;
+            left: 15px;
+        }
+        
+        .promise::after {
+            bottom: 10px;
+            right: 15px;
+        }
+        
+        .heart {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            display: inline-block;
+            margin: 0 5px;
+            animation: heartbeat 1.5s ease infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.1); }
+            10% { transform: scale(1); }
+            15% { transform: scale(1.1); }
+            20% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.5);
+            border-top: 1px solid rgba(211, 84, 109, 0.1);
+        }
+        
+        /* Animation for floating hearts */
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
         }
         
         .heart-particle {
-            position: absolute;
-            font-size: 1.5rem;
-            opacity: 0.7;
-            animation: float 8s infinite linear;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 1000;
         }
         
-        @keyframes float {
-            0% {
-                transform: translateY(100vh) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.7;
-            }
-            90% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-100px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-        
-        .answer-branch {
-            display: none;
-        }
-        
-        .answer-branch.active {
-            display: block;
-        }
-        
-        .progress-dots {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-            position: relative;
-            z-index: 15;
-        }
-        
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
-            margin: 0 5px;
-            transition: all 0.3s ease;
-        }
-        
-        .dot.active {
-            background: var(--primary);
-            transform: scale(1.3);
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 380px) {
-            .typewriter {
-                font-size: 1.2rem;
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
             }
             
-            .message-card {
+            h2 {
+                font-size: 2.3rem;
+            }
+            
+            p {
                 font-size: 1rem;
-                padding: 20px;
+            }
+            
+            .letter-container {
+                padding: 25px;
             }
             
             .btn {
-                padding: 14px 28px;
-                font-size: 1.1rem;
-                min-width: 200px;
+                padding: 12px 30px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.2rem;
             }
             
-            .character {
-                width: 150px;
-                height: 170px;
+            h2 {
+                font-size: 1.9rem;
             }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            section {
+                padding: 20px 10px;
+            }
+            
+            .letter-container {
+                padding: 20px 15px;
+            }
+            
+            .timeline-item {
+                padding-left: 20px;
+            }
+            
+            .timeline::before {
+                left: -5px;
+            }
+            
+            .timeline-item::before {
+                left: -13px;
+            }
+        }
+        
+        /* Additional decorative elements */
+        .floating-heart {
+            position: absolute;
+            opacity: 0.1;
+            z-index: -1;
+        }
+        
+        .floating-heart-1 {
+            top: 10%;
+            left: 5%;
+            font-size: 3rem;
+            animation: float-slow 15s infinite linear;
+        }
+        
+        .floating-heart-2 {
+            top: 70%;
+            right: 5%;
+            font-size: 2rem;
+            animation: float-slow 12s infinite linear reverse;
+        }
+        
+        .floating-heart-3 {
+            top: 40%;
+            left: 10%;
+            font-size: 1.5rem;
+            animation: float-slow 18s infinite linear;
+        }
+        
+        @keyframes float-slow {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0) rotate(360deg); }
+        }
+        
+        /* Section specific backgrounds */
+        #home {
+            background: linear-gradient(135deg, var(--soft-pink) 0%, var(--warm-white) 100%);
+        }
+        
+        #about {
+            background: linear-gradient(135deg, var(--warm-white) 0%, var(--pastel-blue-light) 100%);
+        }
+        
+        #mistake {
+            background: linear-gradient(135deg, var(--pastel-blue-light) 0%, var(--soft-pink) 100%);
+        }
+        
+        #letter {
+            background: linear-gradient(135deg, var(--soft-pink) 0%, var(--warm-white) 100%);
+        }
+        
+        #final {
+            background: linear-gradient(135deg, var(--warm-white) 0%, var(--pastel-blue-light) 100%);
         }
     </style>
 </head>
 <body>
-    <div class="floating-hearts" id="hearts-container"></div>
+    <!-- Decorative floating hearts -->
+    <div class="floating-heart floating-heart-1">❤</div>
+    <div class="floating-heart floating-heart-2">❤</div>
+    <div class="floating-heart floating-heart-3">❤</div>
     
-    <div class="container">
-        <!-- Page 1: উপহার -->
-        <div class="page active" id="page1">
-            <div class="header">
-                <div class="typewriter" id="typewriter1"></div>
-            </div>
-            <div class="message-card">
-                জীবনকে সাধারণ থেকে অসাধারণ করে তোলে কিছু মুহূর্ত। আর তুমি এসেই আমার সেই মুহূর্তগুলোকে করে তুলেছো স্বপ্নের মতন। এই পাতাটা শুধু একটি ওয়েবপেজ নয়, এটা হল আমার হৃদয়ের একটি খোলা চিঠি, যেখানে গুছিয়ে বলার চেষ্টা করেছি তুমি আমার জন্য কতটা মূল্যবান। এই উপহারটির ভেতর লুকিয়ে আছে আমার সবচেয়ে গভীর অনুভূতি আর সেই প্রশ্ন, যা শুধু তোমাকেই জিজ্ঞেস করতে চাই।
-                <div class="short-content">
-                    "মাইশা, তুমি আমার প্রতিদিনের সবচেয়ে সুন্দর অনুভূতি। এই যাত্রাটা শুরু করবে?"
+    <!-- Home Page -->
+    <section id="home" class="active">
+        <div class="container">
+            <h1>Dear Hamida</h1>
+            <p class="tagline">"একটা ক্ষমা, মন থেকে..."</p>
+            <p>
+                হামিদা,<br>
+                আমি জানি আজ তোমার কাছে এই ওয়েবসাইটটা হয়তো হঠাৎ মনে হচ্ছে।<br>
+                কিন্তু আমি এটাকে কোনো ডিজাইন প্রজেক্ট হিসেবে না,<br>
+                আমার নিজের মন থেকে লেখা একটা চিঠি হিসেবে বানিয়েছি।
+            </p>
+            <p>
+                তুমি হয়তো ভাবছো — "এতদিন পর এখন কেন?"<br>
+                কিন্তু সত্যি বলছি, অনেক সময় চুপ থাকাটা ভুল বোঝাবুঝি হয়ে যায়,<br>
+                আর আমি সেটাই করেছি — চুপ থেকে তোমাকে হারিয়েছি।<br>
+                আজ আমি শুধু একটাই কথা বলতে চাই —<br>
+                <strong>আমি সত্যিই দুঃখিত।</strong>
+            </p>
+            <button class="btn" onclick="showSection('about')">Read More</button>
+        </div>
+    </section>
+
+    <!-- About Page -->
+    <section id="about">
+        <div class="container">
+            <h2>আমাদের গল্পটা</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">২৪ নভেম্বর ২০২৪</div>
+                    <p>সেই দিনটা ছিল একদম সাধারণ একটা দিন।<br>
+                    কিন্তু সেদিনই শুরু হয়েছিল আমার জীবনের এক অদ্ভুত সুন্দর অধ্যায় — তোমার সঙ্গে পরিচয়।</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">ডিসেম্বর ২০২৪</div>
+                    <p>তুমি ধীরে ধীরে আমার জীবনের এমন এক জায়গায় চলে এলে,<br>
+                    যেখানে কেউ আগে আসেনি।<br>
+                    তুমি শুধু বন্ধু না, আমার জীবনের শান্ত জায়গাটা ছিলে।</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">জানুয়ারি ২০২৫</div>
+                    <p>সবকিছু তখনও ঠিকঠাক চলছিলো,<br>
+                    কিন্তু ফেব্রুয়ারি থেকে অজান্তেই আমাদের মাঝে একটু একটু করে দূরত্ব তৈরি হতে লাগল।</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">মার্চ – এপ্রিল ২০২৫</div>
+                    <p>এই দুই মাসে সেই দূরত্বটা আরও বড় হয়ে গেল।<br>
+                    আমরা কথা বলতাম, কিন্তু আগের মতো মন খুলে না।<br>
+                    মে মাসে এসে হাসতে হাসতে সেই দূরত্বটাই স্থায়ী হয়ে গেল —<br>
+                    আমরা কাছেও ছিলাম, আবার অনেক দূরেও।</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">জুন ২০২৫</div>
+                    <p>এই সময়টা ছিল দোটানায় ভরা —<br>
+                    সম্পর্কটা রাখব নাকি ছাড়ব,<br>
+                    দুজনেই যেন বুঝে উঠতে পারছিলাম না কী করব।</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">জুলাই – আগস্ট ২০২৫</div>
+                    <p>আমি তখন নিজের ভুল বুঝে সত্যি মন থেকে ক্ষমা চেয়েছিলাম,<br>
+                    আর তুমি সেই ক্ষমাটা দিয়েওছিলে।<br>
+                    আমরা আবার নতুন করে শুরু করেছিলাম,<br>
+                    যদিও সেটা বেশিদিন টেকেনি।</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">সেপ্টেম্বর – অক্টোবর ২০২৫</div>
+                    <p>এই দুই মাসে একদম কোনো কথা হয়নি।<br>
+                    আমরা চুপচাপ দূরে থেকেছি,<br>
+                    কেউ কারো খবর নিইনি, অথচ মনটা বারবার মনে করিয়েছে —<br>
+                    "একসময় ও ছিল আমার সবচেয়ে কাছের মানুষ।"</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">নভেম্বর ২০২৫ (এখন)</div>
+                    <p>আজ অনেক মাস পরে আবার তোমার মেসেজ পেলাম।<br>
+                    তুমি বললে, তুমি কষ্ট পেয়েছো —<br>
+                    আর সত্যি বলতে আমি জানি, তোমার প্রতিটা কথাই সত্য।<br>
+                    সেই সময় আমি বুঝিনি,<br>
+                    কতটা বড় কিছুকে অবহেলা করছিলাম।</p>
                 </div>
             </div>
-            <div class="btn-container">
-                <button class="btn" id="btn-page1">উপহারটা খুলি? 🎁</button>
+            <button class="btn" onclick="showSection('mistake')">Then What Happened?</button>
+        </div>
+    </section>
+
+    <!-- Mistake Page -->
+    <section id="mistake">
+        <div class="container">
+            <h2>আমার ভুলগুলো</h2>
+            <p>আমি জানি আমি ভুল করেছি।</p>
+            <p>তুমি যতটা গুরুত্ব দিয়েছো, আমি তার অর্ধেকটাও বুঝিনি।</p>
+            <div class="mistake-highlight">
+                <p>তুমি যতবার নিজে থেকে যোগাযোগ করেছো,<br>
+                আমি ভেবেছি – 'পরে রিপ্লাই দিই',<br>
+                কিন্তু সেই 'পরে' কখনো আসেনি।</p>
+            </div>
+            <p>তুমি যখন বলেছিলে — "এক ভুল যে বারবার হয়, তার ক্ষমা নেই"<br>
+            তখন সত্যি ভেঙে গিয়েছিলাম।<br>
+            কারণ জানতাম, তুমি ঠিক বলছো।</p>
+            <p>ভুল ছিল আমারই, আর আমি তার মূল্য হারিয়ে বুঝেছি।</p>
+            <p>আমি এখন শুধু চাই — তুমি একবার অন্তত শুনো,<br>
+            আমার একবারের মতো ক্ষমা চাওয়াটা মন থেকে।</p>
+            <button class="btn" onclick="showSection('letter')">A Letter From My Heart</button>
+        </div>
+    </section>
+
+    <!-- Letter Page -->
+    <section id="letter">
+        <div class="container">
+            <h2>মন থেকে একটা চিঠি</h2>
+            <div class="letter-container">
+                <p>হামিদা,</p>
+                <p>এই ওয়েবসাইটটা আমি কারও জন্য না,<br>
+                শুধু তোমার জন্য বানিয়েছি।</p>
+                <p>তুমি আমার জীবনে এমন এক সময় এসেছিলে,<br>
+                যখন আমি নিজের মানসিক অবস্থার দিক থেকেও অনেক ভাঙা ছিলাম।<br>
+                তুমি আমাকে হাসিয়েছো, খেয়াল রেখেছো, বোঝার চেষ্টা করেছো।<br>
+                আর আমি... কেবল অবহেলা করেছি।</p>
+                <p>আমি জানি, সময় ফিরে পাওয়া যায় না,<br>
+                কিন্তু মানুষ বদলায় —<br>
+                আর আমি বদলেছি।</p>
+                <p>আজ আমি শুধু একটা সুযোগ চাই —<br>
+                সবকিছু আবার নতুন করে শুরু করার।<br>
+                শুধু বন্ধু হিসেবে হলেও,<br>
+                তোমার সঙ্গে কথাগুলো ফেরাতে চাই।</p>
+                <p>ক্ষমা চাচ্ছি না,<br>
+                তোমার বিশ্বাসটা ফেরত পেতে চাই।</p>
+            </div>
+            <button class="btn" onclick="showSection('final')">If you forgive me...</button>
+        </div>
+    </section>
+
+    <!-- Final Page -->
+    <section id="final">
+        <div class="container">
+            <h2>শেষ কথা</h2>
+            <div class="final-message">
+                <p>যদি একবার মনে হয় আমি সত্যিই অনুতপ্ত,<br>
+                তাহলে হয়তো এই ওয়েবসাইটটা তার কাজটা করে ফেলেছে।</p>
+                <div class="promise">
+                    <p>তোমাকে আমি শুধু একটাই কথা দিতে পারি —<br>
+                    এইবার থেকে আমি কখনো তোমাকে অবহেলা করব না।<br>
+                    চাইলেও পারব না, কারণ আমি বুঝেছি হারানোর ভয়টা কেমন লাগে।</p>
+                </div>
+                <p>ধন্যবাদ, হামিদা —<br>
+                তুমি যেমন মানুষ, তেমন খুব কমই হয়।</p>
+                <p>আর যদি এই পেজটা পর্যন্ত পড়ো,<br>
+                তাহলে জানবে — আমি এখনও তোমাকে বন্ধু বলে ভাবি।</p>
+                <button class="btn" id="forgive-btn" onclick="forgive()">Forgive <span class="heart">❤</span></button>
             </div>
         </div>
-        
-        <!-- Page 2: স্মৃতি -->
-        <div class="page" id="page2">
-            <div class="header">
-                <div class="typewriter" id="typewriter2"></div>
-            </div>
-            <div class="message-card">
-                প্রথম দেখা হওয়ার সেই মুহূর্তটা এখনও আমার মনের পর্দায় ভিডিওর মতো চলে। তোমার হাসিতে যেন সবকিছু থেমে গিয়েছিল। তোমার কথার সুর, লাজুক ভঙ্গি — সব মিলিয়ে একটা অদ্ভুত ভালোলাগা কাজ করেছিল। এরপর আমাদের প্রতিটা দেখা, প্রতিটা কথোপকথন, কফির কাপে চুমুক দেয়ার মুহূর্ত, কিংবা হঠাৎ বৃষ্টিতে ভিজে যাওয়া — এই ছোট ছোট স্মৃতিগুলোই আমার জীবনের সবচেয়ে দামি সম্পদ হয়ে গেছে।
-                <div class="bullet-points">
-                    <li><strong>প্রথম দেখা:</strong> আমার জীবনের সবচেয়ে সুন্দর 'অ্যাক্সিডেন্ট'।</li>
-                    <li><strong>প্রথম কথা:</strong> আমার নীরবতা ভেঙে দেয়া একটি সুর।</li>
-                    <li><strong>তোমার উপস্থিতি:</strong> আমার অসম্পূর্ণ জীবনকে পূর্ণ করার শুরু।</li>
-                </div>
-            </div>
-            <div class="btn-container">
-                <button class="btn" id="btn-page2">পরের স্মৃতিটা দেখি? 💫</button>
-            </div>
-        </div>
-        
-        <!-- Page 3: তুমি কেন বিশেষ -->
-        <div class="page" id="page3">
-            <div class="header">
-                <div class="typewriter" id="typewriter3"></div>
-            </div>
-            <div class="message-card">
-                মাইশা, আমি তোমাকে ভালোবাসি শুধু তুমি বলে নয়, ভালোবাসি তোমার ভেতরের সেই মানুষটার জন্য...
-                <div class="bullet-points">
-                    <li>যে অল্পতেই হেসে ওঠে, যার হাসিতে আমার সমস্ত ক্লান্তি উধাও হয়ে যায়।</li>
-                    <li>যে অন্যায় দেখলে না থেমে থেকে, সত্যের পক্ষে দাঁড়ায়।</li>
-                    <li>যার সামনে থাকলে পৃথিবীটা একদম শান্ত, একদম নিরাপদ লাগে।</li>
-                </div>
-                তুমি যখন আমার জন্য চা বানাও, কিংবা হঠাৎ করেই 'কেমন আছ?' বলে মেসেজ দাও — এই ছোট ছোট জিনিসগুলোই আমাকে বারবার মনে করিয়ে দেয়, আমি কতটা ভাগ্যবান।
-                <div class="short-content">
-                    <div>তোমার <strong>হাসি</strong> = আমার শক্তি</div>
-                    <div>তোমার <strong>কণ্ঠস্বর</strong> = আমার প্রিয় গান</div>
-                    <div>তোমার <strong>স্নেহ</strong> = আমার নিরাপদ আশ্রয়</div>
-                </div>
-            </div>
-            <div class="btn-container">
-                <button class="btn" id="btn-page3">আরও জানাও আমার সম্পর্কে ✨</button>
-            </div>
-        </div>
-        
-        <!-- Page 4: তুমি হাসলে -->
-        <div class="page" id="page4">
-            <div class="header">
-                <div class="typewriter" id="typewriter4"></div>
-            </div>
-            <div class="message-card">
-                চোখ বন্ধ করে ভাবো... আমার জন্য তোমার হাসিটাই হল সকালের প্রথম রোদ। তোমার ছোটখাটো আবদার, হঠাৎ গান গেয়ে ওঠা, কিংবা রাগ করে মুখ ঘুরিয়ে নেয়া — জীবনের পাতায় এগুলোই যেন সোনালি হরফে লেখা স্মৃতি। তোমার চোখের দিকে তাকালে আমি আমাদের ভবিষ্যৎ দেখতে পাই — একসাথে গড়ে তোলা একটি ঘর, ভরা অসীম ভালোবাসা আর অফুরান্ত হাসিতে।
-                <div class="short-content">
-                    "তুমি যখন পাশে থাকো, আমার হৃদয় বলে — 'এখানেই আমার ঘর'। আমার ছোট ছোট, সাধারণ কথাগুলোও তুমি যে গুরুত্ব দিয়ে শোনো, সেটাই আমার কাছে পৃথিবীর সবচেয়ে বড় উপহার।"
-                </div>
-            </div>
-            <div class="btn-container">
-                <button class="btn" id="btn-page4">আমি শুনছি... 💖</button>
-            </div>
-        </div>
-        
-        <!-- Page 5: প্রতিশ্রুতি -->
-        <div class="page" id="page5">
-            <div class="header">
-                <div class="typewriter" id="typewriter5"></div>
-            </div>
-            <div class="message-card">
-                মাইশা, আমি প্রতিশ্রুতি দিচ্ছি...
-                আমি প্রতিদিন তোমাকে আরও বেশি করে বুঝতে ও ভালোবাসতে চেষ্টা করব। তোমার সব স্বপ্নকে আমার স্বপ্ন মনে করব। তোমার দুঃখ-কষ্ট ভাগ করে নেব, আর তোমার সুখে উচ্ছ্বসিত হয়ে উঠব। ছোটখাটো তর্কে অহংকার করব না, বরং প্রথমে কথা বলব। আমাদের সম্পর্কটা যেন একটা শান্ত নদীর মতো হয় — স্থির, গভীর এবং চিরকাল বহমান।
-                <div class="bullet-points">
-                    <li><strong>শ্রদ্ধা:</strong> আমি সর্বদা তোমার ব্যক্তিত্ব ও সিদ্ধান্তকে শ্রদ্ধা করব।</li>
-                    <li><strong>সময়:</strong> জীবনের প্রতিটি ছোট-বড় মুহূর্তে আমি তোমার পাশে থাকব।</li>
-                    <li><strong>ভালোবাসা:</strong> প্রতিদিনই তোমাকে নতুন করে ভালোবাসব, আগের চেয়েও বেশি করে।</li>
-                </div>
-            </div>
-            <div class="btn-container">
-                <button class="btn" id="btn-page5">পরের পাতায় যাই? 🌟</button>
-            </div>
-        </div>
-        
-        <!-- Page 6: কেন তুমি? -->
-        <div class="page" id="page6">
-            <div class="header">
-                <div class="typewriter" id="typewriter6"></div>
-            </div>
-            <div class="message-card">
-                তুমি যদি আজ问我 'কেন?' — আমি বলব:
-                <div class="bullet-points">
-                    <li><strong>কারণ</strong> আমি তোমাকে গভীরভাবে বুঝতে চাই।</li>
-                    <li><strong>কারণ</strong> আমি তোমার প্রতিটি হারানো হাসি ফিরিয়ে আনতে চাই।</li>
-                    <li><strong>কারণ</strong> আমি তোমার কঠিন দিনগুলোকে সহজ করে তুলতে চাই।</li>
-                    <li><strong>কারণ</strong> আমি তোমার ছোট-বড় সব সাফল্য একসাথে উদযাপন করতে চাই।</li>
-                </div>
-                আমি শুধু তোমার প্রেমিকই নই, হতে চাই তোমার সেরা বন্ধু, সবচেয়ে বড় সমর্থক এবং জীবনের প্রতিটি পদক্ষেপে বিশ্বস্ত সঙ্গী।
-            </div>
-            <div class="btn-container">
-                <button class="btn" id="btn-page6">এবারে সেই প্রশ্নটি... ❤️</button>
-            </div>
-        </div>
-        
-        <!-- Page 7: বড় প্রশ্ন -->
-        <div class="page" id="page7">
-            <div class="header">
-                <div class="typewriter" id="typewriter7"></div>
-            </div>
-            <div class="ring"></div>
-            <div class="message-card">
-                "মাইশা, জীবন মানে শুধু বেঁচে থাকা নয়, বেঁচে থাকার অর্থ খুঁজে পাওয়া। আর তুমিই আমার জীবনের অর্থ। তুমি কি আমার হাত ধরে এই সুন্দর যাত্রাটা একসাথে কাটাবে? সারাজীবনের জন্য?"
-                <div class="short-content">
-                    "এই ছোট্ট রিংটি শুধু একটি প্রতীক, আমার প্রতিশ্রুতির। তুমি কি তা গ্রহণ করবে?"
-                </div>
-            </div>
-            <div class="btn-container">
-                <button class="btn" id="btn-yes">হ্যাঁ, এক লক্ষ্য বার! 💍</button>
-                <button class="btn btn-secondary" id="btn-maybe">আমাকে একটু সময় দাও... ⏳</button>
-                <button class="btn btn-tertiary" id="btn-no">আমি পারবো না... 😔</button>
-            </div>
-        </div>
-        
-        <!-- Page 8: উত্তর -->
-        <div class="page" id="page8">
-            <!-- হ্যাঁ উত্তর -->
-            <div class="answer-branch" id="yes-answer">
-                <div class="header">
-                    <div class="typewriter" id="typewriter8-yes"></div>
-                </div>
-                <div class="heart">❤️</div>
-                <div class="message-card">
-                    এই একটি শব্দ আমার সমস্ত স্বপ্নকে সত্যি করে দিল! আমি আমার পুরো জীবন দিয়ে প্রমাণ করব তুমি আজ সঠিক সিদ্ধান্ত নিয়েছ। আমাদের এই নতুন যাত্রার শুরুটা কি আমরা আজই একটা ছোট্ট আয়োজন দিয়ে করব? আমি তো এখনই উড়ে যেতে পারি তোমার কাছে!
-                </div>
-                <div class="btn-container">
-                    <button class="btn" id="btn-restart-yes">চলো, আমাদের গল্প শুরু হোক! 🥂</button>
-                </div>
-            </div>
-            
-            <!-- সময় চাই উত্তর -->
-            <div class="answer-branch" id="maybe-answer">
-                <div class="header">
-                    <div class="typewriter" id="typewriter8-maybe"></div>
-                </div>
-                <div class="message-card">
-                    এটি একটি খুব বড় সিদ্ধান্ত, এবং আমি সম্পূর্ণরূপে শ্রদ্ধা করি যে তোমার সময় প্রয়োজন। তুমি যত সময়ই নাও না কেন, আমি ধৈর্য্য সহকারে অপেক্ষায় থাকব। যখনই তুমি প্রস্তুত হবে, আমাকে জানাবে। আমার অনুভূতিতে কোন পরিবর্তন আসবে না।
-                </div>
-                <div class="btn-container">
-                    <button class="btn" id="btn-restart-maybe">বুঝেছি, কথা হবে পরে 💬</button>
-                </div>
-            </div>
-            
-            <!-- না উত্তর -->
-            <div class="answer-branch" id="no-answer">
-                <div class="header">
-                    <div class="typewriter" id="typewriter8-no"></div>
-                </div>
-                <div class="message-card">
-                    এটি শুনে আমার heartbroken, কিন্তু আমি তোমার সৎ উত্তরটির প্রতি গভীরভাবে শ্রদ্ধা জানাই। আমি আমাদের shared memories গুলোকে সর্বদা লালন করব। যদি তুমি ever change your mind, আমি শুনতে চাই। নতুবা, I wish you nothing but happiness.
-                </div>
-                <div class="btn-container">
-                    <button class="btn" id="btn-restart-no">বিদায় 💔</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- কার্টুন কারakter -->
-        <div class="character">
-            <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><circle cx='100' cy='60' r='40' fill='%23ffb6c1'/><circle cx='85' cy='50' r='5' fill='black'/><circle cx='115' cy='50' r='5' fill='black'/><path d='M90 75 Q100 85 110 75' stroke='black' stroke-width='3' fill='none'/><path d='M60 120 Q100 180 140 120' fill='%23ff69b4'/><circle cx='70' cy='40' r='10' fill='%23ffb6c1'/><circle cx='130' cy='40' r='10' fill='%23ffb6c1'/></svg>" alt="Cute Anime Girl">
-        </div>
-        
-        <!-- Progress Dots -->
-        <div class="progress-dots" id="progressDots"></div>
-    </div>
+    </section>
+
+    <footer>
+        <p>Built with Regret and Hope.<br>- From me, to you.</p>
+    </footer>
 
     <script>
-        // টাইপার টেক্সট সংজ্ঞা
-        const typewriterTexts = {
-            1: "মাইশা... আমার জন্য একটু সময় আছে? একটা খুব ছোট, কিন্তু খুব বিশেষ উপহার তোমার জন্য অপেক্ষা করছে...",
-            2: "সেই দিনটা... মনে আছে? আমার整个世界 (পুরো দুনিয়া) যেন এক পলকে থেমে গিয়েছিল...",
-            3: "তোমার ছোট ছোট ব্যাপারগুলো... আমার কাছে বিশাল অর্থ নিয়ে আসে...",
-            4: "তুমি যখন হাসো... আমার সমস্ত ব্যথা-ক্লান্তি যেন ঘুমিয়ে পড়ে...",
-            5: "আমি কথা দিচ্ছি... তোমার হাসি কখনো ম্লান হতে দেব না...",
-            6: "কারণ... দুনিয়াতে তোমার মতো কেউ নেই...",
-            7: "মাইশা... তুমি কি আমার জীবনসঙ্গী হবে?",
-            "8-yes": "ওহ! তুমি বললে 'হ্যাঁ'! আমার整个世界 (পুরো দুনিয়া) আজ রঙিন হয়ে গেল!",
-            "8-maybe": "আমি বুঝতে পারি... আমি অপেক্ষা করব।",
-            "8-no": "আমি তোমার সততা মূল্য দিই... ধন্যবাদ বলার জন্য।"
-        };
-        
-        // বর্তমান পেজ ট্র্যাক করা
-        let currentPage = 1;
-        const totalPages = 7;
-        
-        // হার্ট পার্টিকেল তৈরি
-        function createHearts() {
-            const container = document.getElementById('hearts-container');
-            const heartCount = 15;
-            
-            for (let i = 0; i < heartCount; i++) {
-                const heart = document.createElement('div');
-                heart.className = 'heart-particle';
-                heart.innerHTML = '❤️';
-                heart.style.left = Math.random() * 100 + 'vw';
-                heart.style.animationDelay = Math.random() * 8 + 's';
-                heart.style.fontSize = (Math.random() * 1 + 1) + 'rem';
-                container.appendChild(heart);
-            }
-        }
-        
-        // প্রোগ্রেস ডট তৈরি
-        function createProgressDots() {
-            const container = document.getElementById('progressDots');
-            
-            for (let i = 1; i <= totalPages; i++) {
-                const dot = document.createElement('div');
-                dot.className = 'dot' + (i === 1 ? ' active' : '');
-                dot.setAttribute('data-page', i);
-                container.appendChild(dot);
-            }
-        }
-        
-        // প্রোগ্রেস ডট আপডেট
-        function updateProgressDots(pageNum) {
-            const dots = document.querySelectorAll('.dot');
-            dots.forEach(dot => {
-                dot.classList.remove('active');
-                if (parseInt(dot.getAttribute('data-page')) === pageNum) {
-                    dot.classList.add('active');
-                }
-            });
-        }
-        
-        // পেজ দেখানোর ফাংশন
-        function showPage(pageNum) {
-            // সব পেজ লুকান
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
+        // Function to show specific section and hide others
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.classList.remove('active');
             });
             
-            // নতুন পেজ দেখান
-            document.getElementById(`page${pageNum}`).classList.add('active');
-            currentPage = pageNum;
+            // Show the selected section
+            document.getElementById(sectionId).classList.add('active');
             
-            // প্রোগ্রেস ডট আপডেট করুন
-            updateProgressDots(pageNum);
-            
-            // নতুন পেজের জন্য টাইপার শুরু করুন
-            startTypewriter(pageNum);
-            
-            // কার্টুন অ্যানিমেশন
-            animateCharacter();
+            // Scroll to top of the page
+            window.scrollTo(0, 0);
         }
         
-        // উত্তর দেখানোর ফাংশন
-        function showAnswer(answer) {
-            // সব পেজ লুকান
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
+        // Function for the final forgive button
+        function forgive() {
+            const btn = document.getElementById('forgive-btn');
+            btn.innerHTML = 'Thank You <span class="heart">❤</span>';
+            btn.style.background = 'linear-gradient(135deg, #27ae60, #219653)';
             
-            // উত্তর পৃষ্ঠা দেখান
-            document.getElementById('page8').classList.add('active');
-            currentPage = 8;
+            // Create floating hearts animation
+            createHearts();
             
-            // প্রোগ্রেস ডট লুকান
-            document.getElementById('progressDots').style.display = 'none';
-            
-            // সংশ্লিষ্ট উত্তর শাখা দেখান
-            document.getElementById('yes-answer').classList.remove('active');
-            document.getElementById('maybe-answer').classList.remove('active');
-            document.getElementById('no-answer').classList.remove('active');
-            
-            document.getElementById(`${answer}-answer`).classList.add('active');
-            
-            // সংশ্লিষ্ট টাইপার শুরু করুন
-            startTypewriter(`8-${answer}`);
-            
-            // বিশেষ অ্যানিমেশন
-            if (answer === 'yes') {
-                createFireworks();
-            }
-        }
-        
-        // টাইপার অ্যানিমেশন ফাংশন
-        function startTypewriter(pageNum) {
-            const typewriterElement = document.getElementById(`typewriter${pageNum}`);
-            const text = typewriterTexts[pageNum];
-            
-            if (!typewriterElement || !text) return;
-            
-            typewriterElement.innerHTML = '';
-            let i = 0;
-            const speed = 50; // মিলিসেকেন্ড প্রতি অক্ষর
-            
-            function typeWriter() {
-                if (i < text.length) {
-                    typewriterElement.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, speed);
-                }
-            }
-            
-            typeWriter();
-        }
-        
-        // কার্টুন অ্যানিমেশন
-        function animateCharacter() {
-            const character = document.querySelector('.character');
-            character.style.transform = 'translateX(-50%) scale(1.1)';
+            // Show a simple alert message
             setTimeout(() => {
-                character.style.transform = 'translateX(-50%) scale(1)';
-            }, 300);
+                alert('ধন্যবাদ হামিদা, তুমি সত্যিই অসাধারণ। তোমার এই ক্ষমা আমি কখনো ভুলবো না।');
+            }, 1000);
         }
         
-        // ফায়ারওয়ার্কস তৈরি (হ্যাঁ উত্তরের জন্য)
-        function createFireworks() {
-            const container = document.getElementById('hearts-container');
-            for (let i = 0; i < 30; i++) {
+        // Function to create floating hearts
+        function createHearts() {
+            const colors = ['#ff6b6b', '#ff9ff3', '#f368e0', '#ff9f43', '#d3546d'];
+            
+            for (let i = 0; i < 50; i++) {
                 setTimeout(() => {
-                    const firework = document.createElement('div');
-                    firework.className = 'heart-particle';
-                    firework.innerHTML = '✨';
-                    firework.style.left = Math.random() * 100 + 'vw';
-                    firework.style.animationDelay = '0s';
-                    firework.style.animationDuration = (Math.random() * 2 + 1) + 's';
-                    firework.style.fontSize = (Math.random() * 1 + 1) + 'rem';
-                    container.appendChild(firework);
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '❤';
+                    heart.classList.add('heart-particle');
+                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                    heart.style.animation = `float ${Math.random() * 6 + 4}s linear forwards`;
                     
+                    document.body.appendChild(heart);
+                    
+                    // Remove heart after animation completes
                     setTimeout(() => {
-                        firework.remove();
-                    }, 3000);
+                        heart.remove();
+                    }, 10000);
                 }, i * 100);
             }
         }
         
-        // যাত্রা পুনরায় শুরু করার ফাংশন
-        function restartJourney() {
-            // সব পেজ লুকান
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // প্রথম পৃষ্ঠা দেখান
-            document.getElementById('page1').classList.add('active');
-            currentPage = 1;
-            
-            // প্রোগ্রেস ডট দেখান এবং আপডেট করুন
-            document.getElementById('progressDots').style.display = 'flex';
-            updateProgressDots(1);
-            
-            // প্রথম পৃষ্ঠার টাইপার পুনরায় শুরু করুন
-            startTypewriter(1);
-        }
-        
-        // পেজ লোড হলে ইভেন্ট লিসেনার সেটআপ করুন
+        // Simple fade-in effect for elements when they come into view
         document.addEventListener('DOMContentLoaded', function() {
-            createHearts();
-            createProgressDots();
-            startTypewriter(1);
-            
-            // বাটন ইভেন্ট লিসেনার যোগ করুন
-            document.getElementById('btn-page1').addEventListener('click', () => showPage(2));
-            document.getElementById('btn-page2').addEventListener('click', () => showPage(3));
-            document.getElementById('btn-page3').addEventListener('click', () => showPage(4));
-            document.getElementById('btn-page4').addEventListener('click', () => showPage(5));
-            document.getElementById('btn-page5').addEventListener('click', () => showPage(6));
-            document.getElementById('btn-page6').addEventListener('click', () => showPage(7));
-            
-            // উত্তর বাটন
-            document.getElementById('btn-yes').addEventListener('click', () => showAnswer('yes'));
-            document.getElementById('btn-maybe').addEventListener('click', () => showAnswer('maybe'));
-            document.getElementById('btn-no').addEventListener('click', () => showAnswer('no'));
-            
-            // রিস্টার্ট বাটন
-            document.getElementById('btn-restart-yes').addEventListener('click', restartJourney);
-            document.getElementById('btn-restart-maybe').addEventListener('click', restartJourney);
-            document.getElementById('btn-restart-no').addEventListener('click', restartJourney);
+            // Show home page by default
+            showSection('home');
         });
     </script>
 </body>
