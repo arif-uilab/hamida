@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Departments - GoInternet</title>
+    <title>Network Visualization - GoInternet</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -16,8 +16,6 @@
             --shadow: rgba(0, 0, 0, 0.05);
             --text-primary: #1F2937;
             --text-secondary: #6B7280;
-            --sidebar-width: 250px;
-            --header-height: 70px;
             --border-radius: 12px;
             --transition: all 0.3s ease;
         }
@@ -33,63 +31,7 @@
             background: var(--background);
             color: var(--text-primary);
             min-height: 100vh;
-            display: flex;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: var(--sidebar-width);
-            background: var(--primary);
-            color: white;
-            height: 100vh;
-            position: fixed;
-            overflow-y: auto;
-            transition: var(--transition);
-            z-index: 100;
-        }
-
-        .logo {
-            padding: 24px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .logo h1 {
-            font-size: 22px;
-            font-weight: bold;
-        }
-
-        .nav-menu {
-            padding: 16px 0;
-        }
-
-        .nav-item {
-            padding: 12px 24px;
-            display: flex;
-            align-items: center;
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .nav-item.active {
-            background: rgba(255, 255, 255, 0.2);
-            border-left: 4px solid var(--secondary);
-        }
-
-        .nav-item i {
-            margin-right: 12px;
-            font-size: 18px;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: var(--sidebar-width);
-            padding: 20px;
+            overflow-x: hidden;
         }
 
         /* Header */
@@ -99,309 +41,102 @@
             align-items: center;
             padding: 16px 24px;
             background: var(--card-bg);
-            border-radius: var(--border-radius);
             box-shadow: 0 4px 6px var(--shadow);
-            margin-bottom: 24px;
         }
 
-        .search-bar {
-            display: flex;
-            align-items: center;
-            background: #F3F4F6;
-            border-radius: 20px;
-            padding: 8px 16px;
-            width: 300px;
-        }
-
-        .search-bar input {
-            border: none;
-            background: transparent;
-            padding: 8px;
-            width: 100%;
-            outline: none;
-        }
-
-        .user-profile {
+        .logo {
             display: flex;
             align-items: center;
         }
 
-        .user-profile img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 12px;
-            object-fit: cover;
-        }
-
-        .notifications {
-            position: relative;
-            margin-right: 20px;
-            cursor: pointer;
-        }
-
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background: var(--alert);
-            color: white;
-            border-radius: 50%;
-            width: 18px;
-            height: 18px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Page Title */
-        .page-title {
-            margin-bottom: 24px;
-        }
-
-        .page-title h2 {
-            font-size: 24px;
+        .logo h1 {
+            font-size: 22px;
             font-weight: bold;
+            color: var(--primary);
         }
 
-        .page-title p {
-            color: var(--text-secondary);
-            margin-top: 8px;
-        }
-
-        /* Action Bar */
-        .action-bar {
+        .header-controls {
             display: flex;
-            justify-content: space-between;
+            gap: 15px;
             align-items: center;
-            margin-bottom: 20px;
-            padding: 16px;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: 0 2px 4px var(--shadow);
         }
 
-        .action-buttons {
+        .live-status {
             display: flex;
-            gap: 12px;
-        }
-
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
+            align-items: center;
+            background: var(--secondary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
             font-weight: 500;
-            display: flex;
-            align-items: center;
-            transition: var(--transition);
         }
 
-        .btn i {
+        .live-status::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .back-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background: #1e275e;
+            transform: translateY(-2px);
+        }
+
+        .back-btn i {
             margin-right: 8px;
         }
 
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #1e275e;
-        }
-
-        .btn-secondary {
-            background: var(--secondary);
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #16a34a;
-        }
-
-        .btn-warning {
-            background: var(--warning);
-            color: white;
-        }
-
-        .btn-warning:hover {
-            background: #d97706;
-        }
-
-        /* Departments Layout */
-        .departments-layout {
+        /* Main Container */
+        .dashboard-container {
             display: flex;
+            height: calc(100vh - 70px);
+        }
+
+        /* Left Panel - Filters & Layers */
+        .left-panel {
+            width: 300px;
+            background: #F8F9FA;
+            border-right: 1px solid #E5E7EB;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
             gap: 20px;
-            height: calc(100vh - 220px);
         }
 
-        .departments-list {
-            width: 350px;
-            background: var(--card-bg);
+        .panel-section {
+            background: white;
             border-radius: var(--border-radius);
-            box-shadow: 0 4px 6px var(--shadow);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .list-header {
-            padding: 20px;
-            border-bottom: 1px solid #E5E7EB;
-        }
-
-        .list-search {
-            display: flex;
-            align-items: center;
-            background: #F3F4F6;
-            border-radius: 20px;
-            padding: 8px 16px;
-        }
-
-        .list-search input {
-            border: none;
-            background: transparent;
-            padding: 8px;
-            width: 100%;
-            outline: none;
-        }
-
-        .departments-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px 0;
-        }
-
-        .department-item {
-            padding: 16px 20px;
-            border-bottom: 1px solid #F3F4F6;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .department-item:hover {
-            background: #F9FAFB;
-        }
-
-        .department-item.active {
-            background: rgba(39, 48, 115, 0.05);
-            border-left: 4px solid var(--primary);
-        }
-
-        .department-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .department-name {
-            font-weight: 600;
-            font-size: 16px;
-        }
-
-        .department-members {
-            font-size: 12px;
-            color: var(--text-secondary);
-            background: #F3F4F6;
-            padding: 2px 8px;
-            border-radius: 12px;
-        }
-
-        .department-details {
-            display: flex;
-            justify-content: space-between;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .department-status {
-            font-size: 12px;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-weight: 500;
-        }
-
-        .status-active {
-            background: rgba(34, 197, 94, 0.1);
-            color: var(--secondary);
-        }
-
-        .status-inactive {
-            background: rgba(107, 114, 128, 0.1);
-            color: var(--text-secondary);
-        }
-
-        /* Department Details */
-        .department-details-panel {
-            flex: 1;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 6px var(--shadow);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .details-header {
-            padding: 20px;
-            border-bottom: 1px solid #E5E7EB;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .details-title {
-            font-size: 20px;
-            font-weight: 600;
-        }
-
-        .details-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-small {
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .btn-edit {
-            background: var(--primary);
-            color: white;
-        }
-
-        .btn-edit:hover {
-            background: #1e275e;
-        }
-
-        .btn-delete {
-            background: var(--alert);
-            color: white;
-        }
-
-        .btn-delete:hover {
-            background: #dc2626;
-        }
-
-        .details-content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .details-section {
-            margin-bottom: 30px;
+            padding: 15px;
+            box-shadow: 0 2px 4px var(--shadow);
         }
 
         .section-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             margin-bottom: 15px;
             color: var(--primary);
@@ -411,850 +146,1011 @@
 
         .section-title i {
             margin-right: 8px;
-        }
-
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .info-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .info-label {
             font-size: 14px;
-            color: var(--text-secondary);
-            margin-bottom: 5px;
         }
 
-        .info-value {
-            font-weight: 500;
-        }
-
-        .employees-list {
-            border: 1px solid #E5E7EB;
-            border-radius: var(--border-radius);
-            overflow: hidden;
-        }
-
-        .employee-item {
+        .search-box {
             display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            border-bottom: 1px solid #E5E7EB;
+            margin-bottom: 15px;
         }
 
-        .employee-item:last-child {
-            border-bottom: none;
-        }
-
-        .employee-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-right: 12px;
-            background: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 600;
-        }
-
-        .employee-info {
+        .search-box input {
             flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #D1D5DB;
+            border-radius: var(--border-radius) 0 0 var(--border-radius);
+            outline: none;
         }
 
-        .employee-name {
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-
-        .employee-role {
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .employee-id {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        .custom-fields {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .custom-field {
-            display: flex;
-            flex-direction: column;
-            padding: 12px;
-            background: #F9FAFB;
-            border-radius: var(--border-radius);
-        }
-
-        .field-name {
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-
-        .field-value {
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        /* Modal */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            width: 500px;
-            max-width: 90%;
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-
-        .modal-header {
-            padding: 20px;
+        .search-box button {
             background: var(--primary);
             color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-title {
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .close-modal {
-            background: none;
             border: none;
-            color: white;
-            font-size: 20px;
+            border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            padding: 0 15px;
             cursor: pointer;
         }
 
-        .modal-body {
-            padding: 20px;
-            max-height: 70vh;
-            overflow-y: auto;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #D1D5DB;
-            border-radius: 6px;
-            font-size: 14px;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(39, 48, 115, 0.1);
-        }
-
-        .form-textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 50px;
-            height: 24px;
-        }
-
-        .toggle-switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 24px;
-        }
-
-        .toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 16px;
-            width: 16px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-        input:checked + .toggle-slider {
-            background-color: var(--secondary);
-        }
-
-        input:checked + .toggle-slider:before {
-            transform: translateX(26px);
-        }
-
-        .modal-footer {
-            padding: 20px;
-            border-top: 1px solid #E5E7EB;
+        /* Layer Controls */
+        .layer-controls {
             display: flex;
-            justify-content: flex-end;
+            flex-direction: column;
             gap: 10px;
         }
 
+        .layer-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            cursor: pointer;
+        }
+
+        .layer-checkbox {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 2px solid #D1D5DB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .layer-checkbox.checked {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .layer-checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+        }
+
+        .layer-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .layer-icon.pop { background: #3B82F6; }
+        .layer-icon.cable { background: #8B5CF6; }
+        .layer-icon.splitter { background: #10B981; }
+        .layer-icon.user { background: #F59E0B; }
+        .layer-icon.joint { background: #EF4444; }
+        .layer-icon.splice { background: #6B7280; }
+        .layer-icon.tech { background: #EC4899; }
+
+        .layer-name {
+            font-size: 14px;
+            flex: 1;
+        }
+
+        .layer-count {
+            font-size: 12px;
+            color: var(--text-secondary);
+            background: #F3F4F6;
+            padding: 2px 6px;
+            border-radius: 10px;
+        }
+
+        /* Status Filter */
+        .status-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .status-filter {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .status-filter.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .status-filter:not(.active) {
+            background: #F3F4F6;
+            color: var(--text-secondary);
+        }
+
+        /* Fiber Core Legend */
+        .fiber-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            width: calc(50% - 5px);
+        }
+
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            margin-right: 8px;
+        }
+
+        .legend-color.core-1 { background: #FF6B6B; }
+        .legend-color.core-2 { background: #4ECDC4; }
+        .legend-color.core-3 { background: #FFD166; }
+        .legend-color.core-4 { background: #06D6A0; }
+
+        /* Map Container */
+        .map-container {
+            flex: 1;
+            position: relative;
+            background: #e9ecef;
+            overflow: hidden;
+        }
+
+        .map {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #6a89cc, #4a69bd);
+            position: relative;
+        }
+
+        /* Network Elements */
+        .network-element {
+            position: absolute;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .network-element:hover {
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .network-element.pop {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #3B82F6;
+            border: 3px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .network-element.splitter {
+            width: 20px;
+            height: 20px;
+            background: #10B981;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transform: rotate(45deg);
+        }
+
+        .network-element.splitter:hover {
+            transform: rotate(45deg) scale(1.1);
+        }
+
+        .network-element.joint {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #EF4444;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .network-element.tech {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #EC4899;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .network-element.user {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #F59E0B;
+            border: 2px solid white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .element-label {
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .network-element:hover .element-label {
+            opacity: 1;
+        }
+
+        /* Cable Lines */
+        .cable-line {
+            position: absolute;
+            height: 3px;
+            background: #8B5CF6;
+            transform-origin: 0 0;
+            z-index: 1;
+        }
+
+        .cable-line.core-1 { background: #FF6B6B; }
+        .cable-line.core-2 { background: #4ECDC4; }
+        .cable-line.core-3 { background: #FFD166; }
+        .cable-line.core-4 { background: #06D6A0; }
+
+        .cable-line.down {
+            background: #EF4444 !important;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        /* Map Controls */
+        .map-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .map-control {
+            background: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .map-control:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Right Panel - Details */
+        .right-panel {
+            width: 350px;
+            background: #F8F9FA;
+            border-left: 1px solid #E5E7EB;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .details-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .details-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .details-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        .details-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .detail-label {
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .detail-value {
+            font-weight: 500;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #DCFCE7;
+            color: #16A34A;
+        }
+
+        .status-down {
+            background: #FEE2E2;
+            color: #DC2626;
+        }
+
+        .status-maintenance {
+            background: #FEF3C7;
+            color: #D97706;
+        }
+
+        .connected-users {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #E5E7EB;
+            border-radius: var(--border-radius);
+        }
+
+        .user-item {
+            padding: 10px 15px;
+            border-bottom: 1px solid #E5E7EB;
+            font-size: 14px;
+        }
+
+        .user-item:last-child {
+            border-bottom: none;
+        }
+
+        .user-id {
+            font-weight: 500;
+        }
+
+        .user-status {
+            float: right;
+            font-size: 12px;
+        }
+
         /* Responsive */
-        @media (max-width: 1024px) {
-            .sidebar {
-                width: 70px;
-            }
-            
-            .sidebar .logo h1, .nav-item span {
-                display: none;
-            }
-            
-            .nav-item {
-                justify-content: center;
-                padding: 16px;
-            }
-            
-            .nav-item i {
-                margin-right: 0;
-            }
-            
-            .main-content {
-                margin-left: 70px;
-            }
-            
-            .departments-layout {
-                flex-direction: column;
-                height: auto;
-            }
-            
-            .departments-list {
-                width: 100%;
-                height: 300px;
-            }
-            
-            .department-details-panel {
-                height: 500px;
+        @media (max-width: 1200px) {
+            .right-panel {
+                width: 300px;
             }
         }
 
-        @media (max-width: 768px) {
-            .search-bar {
-                width: 200px;
+        @media (max-width: 992px) {
+            .dashboard-container {
+                flex-direction: column;
             }
             
-            .info-grid {
-                grid-template-columns: 1fr;
+            .left-panel {
+                width: 100%;
+                height: 200px;
+                flex-direction: row;
+                overflow-x: auto;
             }
-        }
 
-        @media (max-width: 576px) {
-            .header {
-                flex-direction: column;
-                gap: 16px;
+            .panel-section {
+                min-width: 250px;
             }
-            
-            .search-bar {
+
+            .map-container {
+                height: 60vh;
+            }
+
+            .right-panel {
                 width: 100%;
-            }
-            
-            .user-profile {
-                width: 100%;
-                justify-content: flex-end;
-            }
-            
-            .action-bar {
-                flex-direction: column;
-                gap: 16px;
-                align-items: flex-start;
-            }
-            
-            .action-buttons {
-                width: 100%;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .modal-content {
-                width: 95%;
+                height: 30vh;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar">
+    <!-- Header -->
+    <div class="header">
         <div class="logo">
-            <h1>GoInternet</h1>
+            <h1>GoInternet - Network Visualization</h1>
         </div>
-        <nav class="nav-menu">
-            <div class="nav-item">
-                <i class="fas fa-home"></i>
-                <span>Dashboard</span>
+        <div class="header-controls">
+            <div class="live-status">
+                Live Monitoring Active
             </div>
-            <div class="nav-item">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Customer Map</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-network-wired"></i>
-                <span>Fiber Management</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-router"></i>
-                <span>MikroTik Integration</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-money-bill-wave"></i>
-                <span>Defaulter List</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-server"></i>
-                <span>POP Monitoring</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-file-invoice-dollar"></i>
-                <span>Billing Management</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-comments"></i>
-                <span>Internal Messaging</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-clipboard-list"></i>
-                <span>Request Panels</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-chart-bar"></i>
-                <span>BTRC Reporting</span>
-            </div>
-            <div class="nav-item">
-                <i class="fas fa-check-double"></i>
-                <span>Data Validation</span>
-            </div>
-            <div class="nav-item active">
-                <i class="fas fa-sitemap"></i>
-                <span>Departments</span>
-            </div>
-        </nav>
-    </aside>
+            <a href="dashboard.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                <span>Back to Dashboard</span>
+            </a>
+        </div>
+    </div>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <!-- Header -->
-        <div class="header">
-            <div class="search-bar">
-                <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search departments...">
-            </div>
-            <div class="user-profile">
-                <div class="notifications">
-                    <i class="fas fa-bell"></i>
-                    <div class="notification-badge">2</div>
+    <!-- Main Dashboard -->
+    <div class="dashboard-container">
+        <!-- Left Panel - Filters & Layers -->
+        <div class="left-panel">
+            <div class="panel-section">
+                <div class="section-title">
+                    <i class="fas fa-search"></i>
+                    Search Network
                 </div>
-                <img src="https://ui-avatars.com/api/?name=Admin+User&background=273073&color=fff" alt="Admin User">
-                <span>Admin User</span>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Search POPs, cables, splitters...">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="status-filters">
+                    <div class="status-filter active" data-status="all">All</div>
+                    <div class="status-filter" data-status="active">Active</div>
+                    <div class="status-filter" data-status="down">Down</div>
+                    <div class="status-filter" data-status="maintenance">Maintenance</div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-title">
+                    <i class="fas fa-layer-group"></i>
+                    Network Layers
+                </div>
+                <div class="layer-controls">
+                    <div class="layer-item" data-layer="pop">
+                        <div class="layer-checkbox checked"></div>
+                        <div class="layer-icon pop"><i class="fas fa-building"></i></div>
+                        <div class="layer-name">POP Locations</div>
+                        <div class="layer-count">12</div>
+                    </div>
+                    <div class="layer-item" data-layer="cable">
+                        <div class="layer-checkbox checked"></div>
+                        <div class="layer-icon cable"><i class="fas fa-bolt"></i></div>
+                        <div class="layer-name">Cable Lines</div>
+                        <div class="layer-count">24</div>
+                    </div>
+                    <div class="layer-item" data-layer="splitter">
+                        <div class="layer-checkbox checked"></div>
+                        <div class="layer-icon splitter"><i class="fas fa-code-branch"></i></div>
+                        <div class="layer-name">Splitters</div>
+                        <div class="layer-count">18</div>
+                    </div>
+                    <div class="layer-item" data-layer="joint">
+                        <div class="layer-checkbox"></div>
+                        <div class="layer-icon joint"><i class="fas fa-link"></i></div>
+                        <div class="layer-name">T-J Joints</div>
+                        <div class="layer-count">32</div>
+                    </div>
+                    <div class="layer-item" data-layer="user">
+                        <div class="layer-checkbox"></div>
+                        <div class="layer-icon user"><i class="fas fa-user"></i></div>
+                        <div class="layer-name">User Hierarchy</div>
+                        <div class="layer-count">245</div>
+                    </div>
+                    <div class="layer-item" data-layer="splice">
+                        <div class="layer-checkbox"></div>
+                        <div class="layer-icon splice"><i class="fas fa-cut"></i></div>
+                        <div class="layer-name">Splice Records</div>
+                        <div class="layer-count">56</div>
+                    </div>
+                    <div class="layer-item" data-layer="tech">
+                        <div class="layer-checkbox"></div>
+                        <div class="layer-icon tech"><i class="fas fa-user-hard-hat"></i></div>
+                        <div class="layer-name">Technicians</div>
+                        <div class="layer-count">5</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <div class="section-title">
+                    <i class="fas fa-palette"></i>
+                    Fiber Core Legend
+                </div>
+                <div class="fiber-legend">
+                    <div class="legend-item">
+                        <div class="legend-color core-1"></div>
+                        <span>Core 1 (Primary)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color core-2"></div>
+                        <span>Core 2 (Backup)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color core-3"></div>
+                        <span>Core 3 (Business)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color core-4"></div>
+                        <span>Core 4 (Residential)</span>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Page Title -->
-        <div class="page-title">
-            <h2>Departments Management</h2>
-            <p>Create and manage departments, assign employees, and configure access</p>
-        </div>
-
-        <!-- Action Bar -->
-        <div class="action-bar">
-            <div class="action-buttons">
-                <button class="btn btn-primary" id="newDepartmentBtn">
+        <!-- Center Map -->
+        <div class="map-container">
+            <div class="map" id="network-map">
+                <!-- Cable Lines -->
+                <div class="cable-line core-1" id="cable-1" style="width: 200px; top: 100px; left: 150px; transform: rotate(30deg);"></div>
+                <div class="cable-line core-2" id="cable-2" style="width: 180px; top: 200px; left: 300px; transform: rotate(60deg);"></div>
+                <div class="cable-line core-3" id="cable-3" style="width: 220px; top: 150px; left: 400px; transform: rotate(45deg);"></div>
+                <div class="cable-line core-4 down" id="cable-4" style="width: 250px; top: 250px; left: 200px; transform: rotate(75deg);"></div>
+                
+                <!-- POPs -->
+                <div class="network-element pop" style="top: 100px; left: 150px;" data-id="pop-1" data-type="pop">
+                    <div class="element-label">POP-01</div>
+                </div>
+                <div class="network-element pop" style="top: 200px; left: 300px;" data-id="pop-2" data-type="pop">
+                    <div class="element-label">POP-02</div>
+                </div>
+                <div class="network-element pop" style="top: 150px; left: 400px;" data-id="pop-3" data-type="pop">
+                    <div class="element-label">POP-03</div>
+                </div>
+                
+                <!-- Splitters -->
+                <div class="network-element splitter" style="top: 180px; left: 250px;" data-id="splitter-1" data-type="splitter">
+                    <div class="element-label">Splitter S-12</div>
+                </div>
+                <div class="network-element splitter" style="top: 220px; left: 350px;" data-id="splitter-2" data-type="splitter">
+                    <div class="element-label">Splitter S-08</div>
+                </div>
+                
+                <!-- Joints -->
+                <div class="network-element joint" style="top: 160px; left: 280px;" data-id="joint-1" data-type="joint">
+                    <div class="element-label">Joint J-05</div>
+                </div>
+                
+                <!-- Users -->
+                <div class="network-element user" style="top: 140px; left: 320px;" data-id="user-1" data-type="user">
+                    <div class="element-label">C-4587</div>
+                </div>
+                <div class="network-element user" style="top: 190px; left: 380px;" data-id="user-2" data-type="user">
+                    <div class="element-label">C-3291</div>
+                </div>
+                <div class="network-element user" style="top: 240px; left: 420px;" data-id="user-3" data-type="user">
+                    <div class="element-label">C-6723</div>
+                </div>
+                
+                <!-- Technicians -->
+                <div class="network-element tech" style="top: 270px; left: 280px;" data-id="tech-1" data-type="tech">
+                    <div class="element-label">Tech T-03</div>
+                </div>
+            </div>
+            
+            <div class="map-controls">
+                <button class="map-control" title="Zoom In">
                     <i class="fas fa-plus"></i>
-                    New Department
                 </button>
-                <button class="btn btn-secondary" id="exportDepartments">
-                    <i class="fas fa-file-export"></i>
-                    Export List
+                <button class="map-control" title="Zoom Out">
+                    <i class="fas fa-minus"></i>
                 </button>
-            </div>
-            <div class="department-stats">
-                <span id="activeDepartments">5 Active Departments</span>
+                <button class="map-control" title="Reset View">
+                    <i class="fas fa-crosshairs"></i>
+                </button>
+                <button class="map-control" title="Toggle Layers">
+                    <i class="fas fa-layer-group"></i>
+                </button>
             </div>
         </div>
 
-        <!-- Departments Layout -->
-        <div class="departments-layout">
-            <!-- Left Panel: Departments List -->
-            <div class="departments-list">
-                <div class="list-header">
-                    <div class="list-search">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Search departments...">
-                    </div>
-                </div>
-                <div class="departments-container">
-                    <div class="department-item active" data-dept="accounts">
-                        <div class="department-header">
-                            <div class="department-name">Accounts</div>
-                            <div class="department-members">8 members</div>
-                        </div>
-                        <div class="department-details">
-                            <div class="department-code">ACC-01</div>
-                            <div class="department-status status-active">Active</div>
-                        </div>
-                    </div>
-                    <div class="department-item" data-dept="hr">
-                        <div class="department-header">
-                            <div class="department-name">Human Resources</div>
-                            <div class="department-members">5 members</div>
-                        </div>
-                        <div class="department-details">
-                            <div class="department-code">HR-01</div>
-                            <div class="department-status status-active">Active</div>
-                        </div>
-                    </div>
-                    <div class="department-item" data-dept="technical">
-                        <div class="department-header">
-                            <div class="department-name">Technical Support</div>
-                            <div class="department-members">12 members</div>
-                        </div>
-                        <div class="department-details">
-                            <div class="department-code">TEC-01</div>
-                            <div class="department-status status-active">Active</div>
-                        </div>
-                    </div>
-                    <div class="department-item" data-dept="sales">
-                        <div class="department-header">
-                            <div class="department-name">Sales & Marketing</div>
-                            <div class="department-members">6 members</div>
-                        </div>
-                        <div class="department-details">
-                            <div class="department-code">SAL-01</div>
-                            <div class="department-status status-active">Active</div>
-                        </div>
-                    </div>
-                    <div class="department-item" data-dept="network">
-                        <div class="department-header">
-                            <div class="department-name">Network Operations</div>
-                            <div class="department-members">10 members</div>
-                        </div>
-                        <div class="department-details">
-                            <div class="department-code">NET-01</div>
-                            <div class="department-status status-inactive">Inactive</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right Panel: Department Details -->
-            <div class="department-details-panel">
+        <!-- Right Panel - Details -->
+        <div class="right-panel">
+            <div class="panel-section">
                 <div class="details-header">
-                    <div class="details-title">Accounts Department</div>
-                    <div class="details-actions">
-                        <button class="btn-small btn-edit" id="editDepartmentBtn">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
-                        <button class="btn-small btn-delete" id="deleteDepartmentBtn">
-                            <i class="fas fa-trash"></i> Delete
-                        </button>
+                    <div class="details-title">Network Element Details</div>
+                    <button class="details-close" id="details-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="details-content" id="details-content">
+                    <div style="text-align: center; padding: 40px 0; color: var(--text-secondary);">
+                        <i class="fas fa-mouse-pointer" style="font-size: 32px; margin-bottom: 10px;"></i>
+                        <p>Click on any network element to view details</p>
                     </div>
                 </div>
-                <div class="details-content">
-                    <!-- Department Information -->
-                    <div class="details-section">
-                        <div class="section-title">
-                            <i class="fas fa-info-circle"></i>
-                            Department Information
-                        </div>
-                        <div class="info-grid">
-                            <div class="info-item">
-                                <div class="info-label">Department Name</div>
-                                <div class="info-value">Accounts</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Department Code</div>
-                                <div class="info-value">ACC-01</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Created Date</div>
-                                <div class="info-value">January 15, 2023</div>
-                            </div>
-                            <div class="info-item">
-                                <div class="info-label">Status</div>
-                                <div class="info-value">
-                                    <span class="department-status status-active">Active</span>
-                                </div>
-                            </div>
-                            <div class="info-item full-width">
-                                <div class="info-label">Description</div>
-                                <div class="info-value">Manages all financial operations including billing, payments, expenses, and financial reporting for the organization.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Assigned Employees -->
-                    <div class="details-section">
-                        <div class="section-title">
-                            <i class="fas fa-users"></i>
-                            Assigned Employees (8)
-                        </div>
-                        <div class="employees-list">
-                            <div class="employee-item">
-                                <div class="employee-avatar">JD</div>
-                                <div class="employee-info">
-                                    <div class="employee-name">John Davis</div>
-                                    <div class="employee-role">Chief Financial Officer</div>
-                                </div>
-                                <div class="employee-id">EID-1001</div>
-                            </div>
-                            <div class="employee-item">
-                                <div class="employee-avatar">SM</div>
-                                <div class="employee-info">
-                                    <div class="employee-name">Sarah Miller</div>
-                                    <div class="employee-role">Senior Accountant</div>
-                                </div>
-                                <div class="employee-id">EID-1005</div>
-                            </div>
-                            <div class="employee-item">
-                                <div class="employee-avatar">RJ</div>
-                                <div class="employee-info">
-                                    <div class="employee-name">Robert Johnson</div>
-                                    <div class="employee-role">Billing Specialist</div>
-                                </div>
-                                <div class="employee-id">EID-1012</div>
-                            </div>
-                            <div class="employee-item">
-                                <div class="employee-avatar">EW</div>
-                                <div class="employee-info">
-                                    <div class="employee-name">Emily Wilson</div>
-                                    <div class="employee-role">Accounts Payable</div>
-                                </div>
-                                <div class="employee-id">EID-1018</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Custom Fields -->
-                    <div class="details-section">
-                        <div class="section-title">
-                            <i class="fas fa-cog"></i>
-                            Department Configuration
-                        </div>
-                        <div class="custom-fields">
-                            <div class="custom-field">
-                                <div class="field-name">Access Level</div>
-                                <div class="field-value">Financial Data, Billing, Reports</div>
-                            </div>
-                            <div class="custom-field">
-                                <div class="field-name">Role Permissions</div>
-                                <div class="field-value">Invoice Management, Payment Processing</div>
-                            </div>
-                            <div class="custom-field">
-                                <div class="field-name">Department Rules</div>
-                                <div class="field-value">Monthly Audit, Expense Approval</div>
-                            </div>
-                            <div class="custom-field">
-                                <div class="field-name">Reporting Structure</div>
-                                <div class="field-value">Direct to CEO</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- New Department Modal -->
-    <div class="modal" id="departmentModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title" id="modalTitle">Create New Department</div>
-                <button class="close-modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="departmentForm">
-                    <div class="form-group">
-                        <label class="form-label" for="deptName">Department Name</label>
-                        <input type="text" class="form-control" id="deptName" placeholder="Enter department name">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="deptCode">Department Code</label>
-                        <input type="text" class="form-control" id="deptCode" placeholder="Auto-generated" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="deptDescription">Description</label>
-                        <textarea class="form-control form-textarea" id="deptDescription" placeholder="Enter department description"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="deptStatus">Status</label>
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="deptStatus" checked>
-                                <span class="toggle-slider"></span>
-                            </label>
-                            <span id="statusLabel">Active</span>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Created By</label>
-                        <input type="text" class="form-control" value="Admin User" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Created Date</label>
-                        <input type="text" class="form-control" id="createdDate" readonly>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-warning" id="cancelBtn">Cancel</button>
-                <button class="btn btn-primary" id="saveDepartmentBtn">Save Department</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Departments Page Functionality
+        // Network Data
+        const networkData = {
+            'pop-1': {
+                type: 'pop',
+                name: 'POP-01 (Main Office)',
+                status: 'active',
+                coordinates: '23.8103° N, 90.4125° E',
+                connectedUsers: 85,
+                uptime: '99.8%',
+                lastUpdate: '2 minutes ago',
+                details: 'Central Office with OLT-01 and core routing equipment.'
+            },
+            'pop-2': {
+                type: 'pop',
+                name: 'POP-02 (North Branch)',
+                status: 'active',
+                coordinates: '23.8150° N, 90.4200° E',
+                connectedUsers: 42,
+                uptime: '99.5%',
+                lastUpdate: '5 minutes ago',
+                details: 'Distribution point serving northern residential area.'
+            },
+            'pop-3': {
+                type: 'pop',
+                name: 'POP-03 (East Branch)',
+                status: 'maintenance',
+                coordinates: '23.8120° N, 90.4250° E',
+                connectedUsers: 0,
+                uptime: '98.2%',
+                lastUpdate: '15 minutes ago',
+                details: 'Undergoing scheduled maintenance until 18:00 today.'
+            },
+            'splitter-1': {
+                type: 'splitter',
+                name: 'Splitter S-12',
+                status: 'active',
+                capacity: '16 ports',
+                connectedUsers: 12,
+                location: 'Near POP-01',
+                details: '1:16 splitter serving residential customers in Zone A.'
+            },
+            'splitter-2': {
+                type: 'splitter',
+                name: 'Splitter S-08',
+                status: 'down',
+                capacity: '8 ports',
+                connectedUsers: 0,
+                location: 'Near POP-02',
+                details: 'Currently offline due to cable damage. Technician dispatched.'
+            },
+            'joint-1': {
+                type: 'joint',
+                name: 'T-Joint J-05',
+                status: 'active',
+                cables: 'Core 1, Core 3',
+                location: 'Between POP-01 and Splitter S-12',
+                details: 'Fiber junction with splice records updated last week.'
+            },
+            'user-1': {
+                type: 'user',
+                name: 'Customer C-4587',
+                status: 'active',
+                plan: 'Business 100Mbps',
+                connectedSince: '2023-05-12',
+                location: 'Building A, Floor 3',
+                details: 'Premium business customer with SLA agreement.'
+            },
+            'user-2': {
+                type: 'user',
+                name: 'Customer C-3291',
+                status: 'active',
+                plan: 'Residential 50Mbps',
+                connectedSince: '2023-08-22',
+                location: 'Building B, Floor 1',
+                details: 'Standard residential service.'
+            },
+            'user-3': {
+                type: 'user',
+                name: 'Customer C-6723',
+                status: 'down',
+                plan: 'Residential 30Mbps',
+                connectedSince: '2023-11-05',
+                location: 'Building C, Floor 2',
+                details: 'Service interruption reported 2 hours ago.'
+            },
+            'tech-1': {
+                type: 'tech',
+                name: 'Technician T-03',
+                status: 'active',
+                currentTask: 'Repair cable near Splitter S-08',
+                eta: '45 minutes',
+                contact: '+1-555-0123',
+                details: 'Senior technician with 5 years experience.'
+            }
+        };
+
+        // Initialize the dashboard
         document.addEventListener('DOMContentLoaded', function() {
-            const departmentItems = document.querySelectorAll('.department-item');
-            const newDepartmentBtn = document.getElementById('newDepartmentBtn');
-            const editDepartmentBtn = document.getElementById('editDepartmentBtn');
-            const deleteDepartmentBtn = document.getElementById('deleteDepartmentBtn');
-            const departmentModal = document.getElementById('departmentModal');
-            const closeModalBtn = document.querySelector('.close-modal');
-            const cancelBtn = document.getElementById('cancelBtn');
-            const saveDepartmentBtn = document.getElementById('saveDepartmentBtn');
-            const deptStatus = document.getElementById('deptStatus');
-            const statusLabel = document.getElementById('statusLabel');
-            const modalTitle = document.getElementById('modalTitle');
-            const deptCode = document.getElementById('deptCode');
-            const createdDate = document.getElementById('createdDate');
-            const departmentForm = document.getElementById('departmentForm');
-            
-            // Set current date
-            createdDate.value = new Date().toLocaleDateString();
-            
-            // Department status toggle
-            deptStatus.addEventListener('change', function() {
-                statusLabel.textContent = this.checked ? 'Active' : 'Inactive';
-            });
-            
-            // Department item selection
-            departmentItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    departmentItems.forEach(i => i.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Update details panel based on selected department
-                    const deptName = this.querySelector('.department-name').textContent;
-                    document.querySelector('.details-title').textContent = deptName + ' Department';
+            const networkElements = document.querySelectorAll('.network-element');
+            const layerItems = document.querySelectorAll('.layer-item');
+            const statusFilters = document.querySelectorAll('.status-filter');
+            const searchInput = document.getElementById('search-input');
+            const searchBtn = document.getElementById('search-btn');
+            const detailsClose = document.getElementById('details-close');
+            const detailsContent = document.getElementById('details-content');
+            const mapControls = document.querySelectorAll('.map-control');
+
+            // Show element details when clicked
+            networkElements.forEach(element => {
+                element.addEventListener('click', function() {
+                    const elementId = this.getAttribute('data-id');
+                    showElementDetails(elementId);
                 });
             });
-            
-            // Open new department modal
-            newDepartmentBtn.addEventListener('click', function() {
-                modalTitle.textContent = 'Create New Department';
-                departmentForm.reset();
-                deptCode.value = generateDepartmentCode();
-                departmentModal.classList.add('active');
+
+            // Toggle layer visibility
+            layerItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const layer = this.getAttribute('data-layer');
+                    const checkbox = this.querySelector('.layer-checkbox');
+                    
+                    checkbox.classList.toggle('checked');
+                    toggleLayerVisibility(layer, checkbox.classList.contains('checked'));
+                });
             });
-            
-            // Open edit department modal
-            editDepartmentBtn.addEventListener('click', function() {
-                const activeDept = document.querySelector('.department-item.active');
-                if (activeDept) {
-                    modalTitle.textContent = 'Edit Department';
-                    const deptName = activeDept.querySelector('.department-name').textContent;
-                    const deptCodeValue = activeDept.querySelector('.department-code').textContent;
+
+            // Filter by status
+            statusFilters.forEach(filter => {
+                filter.addEventListener('click', function() {
+                    const status = this.getAttribute('data-status');
                     
-                    document.getElementById('deptName').value = deptName;
-                    document.getElementById('deptCode').value = deptCodeValue;
+                    statusFilters.forEach(f => f.classList.remove('active'));
+                    this.classList.add('active');
                     
-                    departmentModal.classList.add('active');
+                    filterElementsByStatus(status);
+                });
+            });
+
+            // Search functionality
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    performSearch();
                 }
             });
-            
-            // Delete department
-            deleteDepartmentBtn.addEventListener('click', function() {
-                const activeDept = document.querySelector('.department-item.active');
-                if (activeDept) {
-                    const deptName = activeDept.querySelector('.department-name').textContent;
-                    if (confirm(`Are you sure you want to delete the "${deptName}" department? This action will soft delete the department.`)) {
-                        // Simulate deletion
-                        activeDept.style.opacity = '0.5';
-                        activeDept.style.pointerEvents = 'none';
-                        
-                        setTimeout(() => {
-                            alert(`"${deptName}" department has been soft deleted.`);
-                        }, 500);
+
+            // Close details panel
+            detailsClose.addEventListener('click', function() {
+                detailsContent.innerHTML = `
+                    <div style="text-align: center; padding: 40px 0; color: var(--text-secondary);">
+                        <i class="fas fa-mouse-pointer" style="font-size: 32px; margin-bottom: 10px;"></i>
+                        <p>Click on any network element to view details</p>
+                    </div>
+                `;
+            });
+
+            // Map controls
+            mapControls.forEach(control => {
+                control.addEventListener('click', function() {
+                    const action = this.querySelector('i').className;
+                    if (action.includes('plus')) {
+                        alert('Zooming in...');
+                    } else if (action.includes('minus')) {
+                        alert('Zooming out...');
+                    } else if (action.includes('crosshairs')) {
+                        alert('Resetting view...');
+                    } else if (action.includes('layer-group')) {
+                        alert('Toggling layers...');
                     }
-                }
+                });
             });
-            
-            // Close modal
-            function closeModal() {
-                departmentModal.classList.remove('active');
+
+            // Function to show element details
+            function showElementDetails(elementId) {
+                const elementData = networkData[elementId];
+                if (!elementData) return;
+
+                let statusClass = '';
+                if (elementData.status === 'active') statusClass = 'status-active';
+                else if (elementData.status === 'down') statusClass = 'status-down';
+                else if (elementData.status === 'maintenance') statusClass = 'status-maintenance';
+
+                let detailsHTML = `
+                    <div class="detail-row">
+                        <div class="detail-label">Name:</div>
+                        <div class="detail-value">${elementData.name}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Type:</div>
+                        <div class="detail-value">${elementData.type.toUpperCase()}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Status:</div>
+                        <div class="detail-value"><span class="status-badge ${statusClass}">${elementData.status}</span></div>
+                    </div>
+                `;
+
+                // Add type-specific details
+                if (elementData.type === 'pop') {
+                    detailsHTML += `
+                        <div class="detail-row">
+                            <div class="detail-label">Coordinates:</div>
+                            <div class="detail-value">${elementData.coordinates}</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Connected Users:</div>
+                            <div class="detail-value">${elementData.connectedUsers}</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Uptime:</div>
+                            <div class="detail-value">${elementData.uptime}</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Last Update:</div>
+                            <div class="detail-value">${elementData.lastUpdate}</div>
+                        </div>
+                    `;
+                } else if (elementData.type === 'splitter') {
+                    detailsHTML += `
+                        <div class="detail-row">
+                            <div class="detail-label">Capacity:</div>
+                            <div class="detail-value">${elementData.capacity}</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Connected Users:</div>
+                            <div class="detail-value">${elementData.connectedUsers}</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Location:</div>
+                            <div class="detail-value">${elementData.location}</div>
+                        </div>
+                    `;
+                } else if (elementData.type === 'user') {
+                    detailsHTML += `
+                        <div class="detail-row">
+                            <div class="detail-label">Plan:</div>
+                            <div class="detail-value">${elementData.plan}</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Connected Since:</div>
+                            <div class="detail-value">${elementData.connectedSince}</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Location:</div>
+                            <div class="detail-value">${elementData.location}</div>
+                        </div>
+                    `;
+                } else if (elementData.type === 'tech') {
+                    detailsHTML += `
+                        <div class="detail-row">
+                            <div class="detail-label">Current Task:</div>
+                            <div class="detail-value">${elementData.currentTask}</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">ETA:</div>
+                            <div class="detail-value">${elementData.eta}</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Contact:</div>
+                            <div class="detail-value">${elementData.contact}</div>
+                        </div>
+                    `;
+                }
+
+                detailsHTML += `
+                    <div class="detail-row">
+                        <div class="detail-label">Details:</div>
+                        <div class="detail-value">${elementData.details}</div>
+                    </div>
+                `;
+
+                detailsContent.innerHTML = detailsHTML;
             }
-            
-            closeModalBtn.addEventListener('click', closeModal);
-            cancelBtn.addEventListener('click', closeModal);
-            
-            // Save department
-            saveDepartmentBtn.addEventListener('click', function() {
-                const deptName = document.getElementById('deptName').value;
-                const deptCodeValue = document.getElementById('deptCode').value;
-                const deptDescription = document.getElementById('deptDescription').value;
-                const isActive = deptStatus.checked;
+
+            // Function to toggle layer visibility
+            function toggleLayerVisibility(layer, isVisible) {
+                const elements = document.querySelectorAll(`[data-type="${layer}"]`);
+                const cables = document.querySelectorAll('.cable-line');
                 
-                if (!deptName) {
-                    alert('Please enter a department name');
+                if (layer === 'cable') {
+                    cables.forEach(cable => {
+                        cable.style.display = isVisible ? 'block' : 'none';
+                    });
+                } else {
+                    elements.forEach(element => {
+                        element.style.display = isVisible ? 'block' : 'none';
+                    });
+                }
+            }
+
+            // Function to filter elements by status
+            function filterElementsByStatus(status) {
+                networkElements.forEach(element => {
+                    const elementId = element.getAttribute('data-id');
+                    const elementData = networkData[elementId];
+                    
+                    if (status === 'all' || !elementData || elementData.status === status) {
+                        element.style.display = 'block';
+                    } else {
+                        element.style.display = 'none';
+                    }
+                });
+
+                // Also filter cables based on status
+                const cables = document.querySelectorAll('.cable-line');
+                cables.forEach(cable => {
+                    if (status === 'all') {
+                        cable.style.display = 'block';
+                    } else if (status === 'down' && cable.classList.contains('down')) {
+                        cable.style.display = 'block';
+                    } else if (status !== 'down' && cable.classList.contains('down')) {
+                        cable.style.display = 'none';
+                    } else if (status === 'down' && !cable.classList.contains('down')) {
+                        cable.style.display = 'none';
+                    }
+                });
+            }
+
+            // Function to perform search
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                
+                if (!searchTerm) {
+                    // Reset view if search is empty
+                    networkElements.forEach(element => {
+                        element.style.display = 'block';
+                    });
+                    
+                    const cables = document.querySelectorAll('.cable-line');
+                    cables.forEach(cable => {
+                        cable.style.display = 'block';
+                    });
+                    
                     return;
                 }
-                
-                // Simulate saving
-                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
-                
-                setTimeout(() => {
-                    this.innerHTML = 'Save Department';
+
+                // Hide all elements first
+                networkElements.forEach(element => {
+                    element.style.display = 'none';
+                });
+
+                const cables = document.querySelectorAll('.cable-line');
+                cables.forEach(cable => {
+                    cable.style.display = 'none';
+                });
+
+                // Show matching elements
+                networkElements.forEach(element => {
+                    const elementId = element.getAttribute('data-id');
+                    const elementData = networkData[elementId];
                     
-                    if (modalTitle.textContent === 'Create New Department') {
-                        // Create new department item
-                        const newDeptItem = document.createElement('div');
-                        newDeptItem.className = 'department-item';
-                        newDeptItem.setAttribute('data-dept', deptName.toLowerCase().replace(/\s+/g, '-'));
-                        newDeptItem.innerHTML = `
-                            <div class="department-header">
-                                <div class="department-name">${deptName}</div>
-                                <div class="department-members">0 members</div>
-                            </div>
-                            <div class="department-details">
-                                <div class="department-code">${deptCodeValue}</div>
-                                <div class="department-status ${isActive ? 'status-active' : 'status-inactive'}">${isActive ? 'Active' : 'Inactive'}</div>
-                            </div>
-                        `;
+                    if (elementData && (
+                        elementData.name.toLowerCase().includes(searchTerm) ||
+                        elementData.type.toLowerCase().includes(searchTerm) ||
+                        elementId.toLowerCase().includes(searchTerm)
+                    )) {
+                        element.style.display = 'block';
                         
-                        // Add click event to new department
-                        newDeptItem.addEventListener('click', function() {
-                            departmentItems.forEach(i => i.classList.remove('active'));
-                            this.classList.add('active');
-                            document.querySelector('.details-title').textContent = deptName + ' Department';
-                        });
-                        
-                        document.querySelector('.departments-container').appendChild(newDeptItem);
-                        
-                        // Select the new department
-                        departmentItems.forEach(i => i.classList.remove('active'));
-                        newDeptItem.classList.add('active');
-                        document.querySelector('.details-title').textContent = deptName + ' Department';
-                        
-                        alert(`"${deptName}" department created successfully!`);
-                    } else {
-                        // Update existing department
-                        const activeDept = document.querySelector('.department-item.active');
-                        if (activeDept) {
-                            activeDept.querySelector('.department-name').textContent = deptName;
-                            activeDept.querySelector('.department-code').textContent = deptCodeValue;
-                            activeDept.querySelector('.department-status').textContent = isActive ? 'Active' : 'Inactive';
-                            activeDept.querySelector('.department-status').className = `department-status ${isActive ? 'status-active' : 'status-inactive'}`;
-                            
-                            document.querySelector('.details-title').textContent = deptName + ' Department';
-                            
-                            alert(`"${deptName}" department updated successfully!`);
+                        // Also show connected cables for POPs and splitters
+                        if (elementData.type === 'pop' || elementData.type === 'splitter') {
+                            cables.forEach(cable => {
+                                // Simple logic to show cables connected to this element
+                                // In a real app, you would have more sophisticated connection data
+                                const cableId = cable.getAttribute('id');
+                                if (cableId.includes(elementId.split('-')[1])) {
+                                    cable.style.display = 'block';
+                                }
+                            });
                         }
                     }
-                    
-                    closeModal();
-                }, 1000);
-            });
-            
-            // Generate department code
-            function generateDepartmentCode() {
-                const prefixes = {
-                    'accounts': 'ACC',
-                    'human resources': 'HR',
-                    'technical': 'TEC',
-                    'sales': 'SAL',
-                    'network': 'NET',
-                    'support': 'SUP',
-                    'marketing': 'MKT'
-                };
-                
-                const deptName = document.getElementById('deptName').value.toLowerCase();
-                let prefix = 'DEPT';
-                
-                for (const [key, value] of Object.entries(prefixes)) {
-                    if (deptName.includes(key)) {
-                        prefix = value;
-                        break;
-                    }
-                }
-                
-                // Generate random number for code
-                const randomNum = Math.floor(Math.random() * 99) + 1;
-                return `${prefix}-${randomNum.toString().padStart(2, '0')}`;
+                });
             }
-            
-            // Auto-generate code when department name changes
-            document.getElementById('deptName').addEventListener('input', function() {
-                if (modalTitle.textContent === 'Create New Department') {
-                    deptCode.value = generateDepartmentCode();
-                }
-            });
-            
-            // Export departments
-            document.getElementById('exportDepartments').addEventListener('click', function() {
-                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Exporting...';
-                
-                setTimeout(() => {
-                    this.innerHTML = '<i class="fas fa-file-export"></i> Export List';
-                    alert('Departments list exported successfully!');
-                }, 1000);
-            });
         });
     </script>
 </body>
