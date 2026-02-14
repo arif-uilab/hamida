@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoInternet - BTRC Reporting</title>
+    <title>GoInternet - Core System Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -181,98 +181,39 @@
             justify-content: center;
         }
 
-        /* BTRC Content */
-        .btrc-container {
+        /* Core System Container */
+        .core-container {
             flex: 1;
             display: flex;
             flex-direction: column;
             padding: 20px;
             gap: 20px;
-            overflow: hidden;
+            overflow-y: auto;
         }
 
-        .btrc-header {
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 16px;
         }
 
-        .btrc-title h2 {
-            font-size: 24px;
+        .section-title {
+            font-size: 18px;
             font-weight: bold;
         }
 
-        .btrc-title p {
-            color: var(--text-secondary);
-            margin-top: 8px;
-        }
-
-        .btrc-controls {
-            display: flex;
-            gap: 16px;
-        }
-
-        .filter-dropdown {
-            position: relative;
-        }
-
-        .filter-button {
-            background: var(--card-bg);
-            border: 1px solid #E5E7EB;
-            border-radius: var(--border-radius);
-            padding: 10px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .filter-button:hover {
-            border-color: var(--primary);
-        }
-
-        .filter-options {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 12px var(--shadow);
-            padding: 16px;
-            margin-top: 8px;
-            min-width: 200px;
-            z-index: 10;
-            display: none;
-        }
-
-        .filter-options.active {
-            display: block;
-        }
-
-        .filter-option {
-            margin-bottom: 12px;
-        }
-
-        .filter-option:last-child {
-            margin-bottom: 0;
-        }
-
-        .filter-option label {
-            display: block;
-            margin-bottom: 6px;
+        .section-badge {
+            background: rgba(39, 48, 115, 0.1);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
             font-weight: 500;
         }
 
-        .filter-option select {
-            width: 100%;
-            padding: 8px 12px;
-            border: 1px solid #E5E7EB;
-            border-radius: 8px;
-        }
-
         .btn {
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: var(--border-radius);
             cursor: pointer;
             font-weight: 500;
@@ -281,6 +222,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            font-size: 14px;
         }
 
         .btn-primary {
@@ -301,284 +243,162 @@
             background: #E5E7EB;
         }
 
-        /* Report Generation Section */
-        .report-generation {
+        /* ===== 3.1 Map Dashboard ===== */
+        .map-dashboard {
             background: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 20px;
             box-shadow: 0 4px 6px var(--shadow);
         }
 
-        .section-header {
+        .map-filters {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .section-badge {
-            background: rgba(39, 48, 115, 0.1);
-            color: var(--primary);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .generation-controls {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .control-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .control-label {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text-secondary);
-        }
-
-        .control-select {
-            padding: 10px 12px;
-            border: 1px solid #E5E7EB;
-            border-radius: var(--border-radius);
-            background: white;
-        }
-
-        .adjustment-panel {
-            background: #F9FAFB;
-            border-radius: var(--border-radius);
-            padding: 16px;
-            margin: 20px 0;
-        }
-
-        .adjustment-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
-            color: var(--text-secondary);
-            font-size: 14px;
-        }
-
-        .adjustment-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 16px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
         }
 
-        .adjustment-item {
+        .filter-group {
             display: flex;
             flex-direction: column;
             gap: 4px;
+            min-width: 150px;
         }
 
-        .adjustment-item label {
+        .filter-label {
             font-size: 12px;
             color: var(--text-secondary);
         }
 
-        .adjustment-input {
+        .filter-select {
             padding: 8px 12px;
             border: 1px solid #E5E7EB;
             border-radius: 8px;
             background: white;
         }
 
-        .adjustment-note {
-            font-size: 12px;
-            color: var(--warning);
-            margin-top: 8px;
+        .map-legend {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 16px;
+            padding: 12px;
+            background: #F9FAFB;
+            border-radius: var(--border-radius);
+        }
+
+        .legend-item {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 8px;
         }
 
-        /* Summary Widgets */
-        .summary-widgets {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
         }
 
-        .summary-card {
+        .legend-dot.online {
+            background: var(--secondary);
+        }
+
+        .legend-dot.offline {
+            background: var(--alert);
+        }
+
+        .map-container {
+            position: relative;
+            height: 300px;
+            background: #F1F5F9;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400"><rect width="800" height="400" fill="%23e5e7eb"/><path d="M0 200 L800 200" stroke="%239ca3af" stroke-width="1"/><path d="M400 0 L400 400" stroke="%239ca3af" stroke-width="1"/><circle cx="200" cy="150" r="8" fill="%2322C55E"/><circle cx="250" cy="180" r="8" fill="%2322C55E"/><circle cx="300" cy="120" r="8" fill="%23EF4444"/><circle cx="350" cy="200" r="8" fill="%2322C55E"/><circle cx="400" cy="250" r="8" fill="%23EF4444"/><circle cx="450" cy="180" r="8" fill="%2322C55E"/><circle cx="500" cy="220" r="8" fill="%2322C55E"/><circle cx="550" cy="150" r="8" fill="%23EF4444"/><circle cx="600" cy="200" r="8" fill="%2322C55E"/><text x="200" y="130" font-size="10" fill="black">N805</text><text x="250" y="160" font-size="10" fill="black">N8085</text><text x="300" y="100" font-size="10" fill="black">N807</text></svg>');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .map-overlay {
+            position: absolute;
+            top: 16px;
+            left: 16px;
             background: var(--card-bg);
             border-radius: var(--border-radius);
-            padding: 20px;
+            padding: 16px;
             box-shadow: 0 4px 6px var(--shadow);
+            min-width: 200px;
+        }
+
+        .map-stats {
             display: flex;
             flex-direction: column;
-            transition: var(--transition);
+            gap: 8px;
         }
 
-        .summary-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 15px var(--shadow);
-        }
-
-        .card-header {
+        .stat-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
         }
 
-        .card-title {
+        .stat-label {
             color: var(--text-secondary);
             font-size: 14px;
         }
 
-        .card-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .stat-value {
+            font-weight: 600;
         }
 
-        .card-icon.subscribers {
-            background: rgba(59, 130, 246, 0.1);
-            color: var(--info);
-        }
-
-        .card-icon.connections {
-            background: rgba(34, 197, 94, 0.1);
-            color: var(--secondary);
-        }
-
-        .card-icon.revenue {
-            background: rgba(245, 158, 11, 0.1);
-            color: var(--warning);
-        }
-
-        .card-icon.complaints {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--alert);
-        }
-
-        .card-value {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .card-trend {
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-        }
-
-        .card-trend.positive {
-            color: var(--secondary);
-        }
-
-        .card-trend.negative {
-            color: var(--alert);
-        }
-
-        /* Content Area */
-        .btrc-content {
-            display: flex;
-            gap: 20px;
-            height: calc(100% - 280px);
-        }
-
-        /* Report Table */
-        .report-table {
-            flex: 1;
+        /* ===== 3.2 Defaulter Management ===== */
+        .defaulter-management {
             background: var(--card-bg);
             border-radius: var(--border-radius);
-            box-shadow: 0 4px 6px var(--shadow);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .table-header {
             padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #E5E7EB;
+            box-shadow: 0 4px 6px var(--shadow);
         }
 
-        .table-title {
-            font-size: 18px;
-            font-weight: bold;
+        .hierarchy-filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
         }
 
-        .table-controls {
+        .filter-input {
+            padding: 8px 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        .status-filters {
             display: flex;
             gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
         }
 
-        .export-options {
-            position: relative;
+        .status-chip {
+            padding: 6px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid #E5E7EB;
         }
 
-        .export-button {
+        .status-chip:hover {
+            border-color: var(--primary);
+        }
+
+        .status-chip.active {
             background: var(--primary);
             color: white;
-            padding: 10px 16px;
-            border-radius: var(--border-radius);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: var(--transition);
+            border-color: var(--primary);
         }
 
-        .export-button:hover {
-            background: #1e2a5f;
-        }
-
-        .export-menu {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            box-shadow: 0 4px 12px var(--shadow);
-            padding: 8px;
-            margin-top: 8px;
-            min-width: 150px;
-            z-index: 10;
-            display: none;
-        }
-
-        .export-menu.active {
-            display: block;
-        }
-
-        .export-option {
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .export-option:hover {
-            background: #F3F4F6;
-        }
-
-        .table-container {
-            flex: 1;
-            overflow: auto;
+        .defaulter-table-container {
+            overflow-x: auto;
+            max-height: 300px;
         }
 
         table {
@@ -597,11 +417,6 @@
             font-weight: 600;
             position: sticky;
             top: 0;
-            cursor: pointer;
-        }
-
-        th:hover {
-            background: #F3F4F6;
         }
 
         tr:hover {
@@ -616,161 +431,192 @@
             font-weight: 500;
         }
 
-        .status-active {
-            background: rgba(34, 197, 94, 0.1);
-            color: var(--secondary);
+        .status-due {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
         }
 
-        .status-inactive {
+        .status-overdue {
             background: rgba(239, 68, 68, 0.1);
             color: var(--alert);
         }
 
-        .pagination {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px 20px;
-            border-top: 1px solid #E5E7EB;
+        .status-suspended {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--alert);
         }
 
-        .pagination-info {
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .pagination-controls {
-            display: flex;
-            gap: 8px;
-        }
-
-        .pagination-btn {
-            padding: 8px 12px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: var(--transition);
-            border: 1px solid #E5E7EB;
-            background: var(--card-bg);
-        }
-
-        .pagination-btn:hover {
-            background: #F3F4F6;
-        }
-
-        .pagination-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        /* Compliance Panel */
-        .compliance-panel {
-            width: 300px;
+        /* ===== 3.3 POP Monitoring (NOC) ===== */
+        .pop-monitoring {
             background: var(--card-bg);
             border-radius: var(--border-radius);
+            padding: 20px;
             box-shadow: 0 4px 6px var(--shadow);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
         }
 
-        .compliance-header {
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #E5E7EB;
-        }
-
-        .compliance-title {
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .compliance-container {
-            flex: 1;
-            overflow: auto;
-            padding: 20px;
-        }
-
-        .compliance-list {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .compliance-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: #F9FAFB;
-            border-radius: var(--border-radius);
-        }
-
-        .compliance-status {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 12px;
-        }
-
-        .compliance-status.complete {
-            background: var(--secondary);
-        }
-
-        .compliance-status.pending {
-            background: var(--warning);
-        }
-
-        .compliance-info {
-            flex: 1;
-        }
-
-        .compliance-name {
-            font-weight: 500;
-            margin-bottom: 4px;
-        }
-
-        .compliance-desc {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-
-        /* Charts Section */
-        .charts-section {
+        .pop-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            margin-top: 20px;
         }
 
-        .chart-card {
+        .pop-card {
+            background: #F9FAFB;
+            border-radius: var(--border-radius);
+            padding: 16px;
+            border-left: 4px solid;
+        }
+
+        .pop-card.active {
+            border-left-color: var(--secondary);
+        }
+
+        .pop-card.degraded {
+            border-left-color: var(--warning);
+        }
+
+        .pop-card.down {
+            border-left-color: var(--alert);
+        }
+
+        .pop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .pop-name {
+            font-weight: 600;
+        }
+
+        .pop-status {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+
+        .pop-status.active {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--secondary);
+        }
+
+        .pop-status.degraded {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .pop-status.down {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--alert);
+        }
+
+        .downtime-log {
+            font-size: 14px;
+            margin: 8px 0;
+            color: var(--text-secondary);
+        }
+
+        .network-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .metric {
+            background: white;
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .metric-value {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .chart-container {
+            height: 80px;
+            margin-top: 8px;
+        }
+
+        /* ===== 3.4 Traffic Monitoring ===== */
+        .traffic-monitoring {
             background: var(--card-bg);
             border-radius: var(--border-radius);
             padding: 20px;
             box-shadow: 0 4px 6px var(--shadow);
         }
 
-        .chart-header {
+        .traffic-controls {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
+            gap: 16px;
+            margin-bottom: 16px;
         }
 
-        .chart-title {
-            font-size: 18px;
+        .traffic-chart {
+            height: 200px;
+            position: relative;
+        }
+
+        /* ===== 3.5 POP-wise Client Insights ===== */
+        .client-insights {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .insight-card {
+            background: #F9FAFB;
+            border-radius: var(--border-radius);
+            padding: 16px;
+        }
+
+        .insight-title {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .insight-value {
+            font-size: 24px;
             font-weight: bold;
         }
 
-        .chart-container {
-            height: 250px;
-            position: relative;
+        .complaint-list {
+            margin-top: 12px;
+        }
+
+        .complaint-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        /* ===== 3.6 POP-wise Financial Report ===== */
+        .financial-report {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+
+        .financial-table {
+            overflow-x: auto;
         }
 
         /* Responsive */
@@ -789,15 +635,6 @@
             
             .menu-toggle {
                 display: block;
-            }
-            
-            .btrc-content {
-                flex-direction: column;
-            }
-            
-            .compliance-panel {
-                width: 100%;
-                height: 300px;
             }
         }
 
@@ -818,67 +655,16 @@
                 width: 100%;
             }
             
-            .btrc-header {
+            .map-filters {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 16px;
             }
             
-            .btrc-controls {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .filter-dropdown {
+            .filter-group {
                 width: 100%;
             }
             
-            .filter-button {
-                width: 100%;
-            }
-            
-            .filter-options {
-                width: 100%;
-                right: auto;
-                left: 0;
-            }
-            
-            .btrc-container {
-                padding: 10px;
-            }
-            
-            .generation-controls {
+            .pop-grid {
                 grid-template-columns: 1fr;
-            }
-            
-            .adjustment-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .charts-section {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .summary-widgets {
-                grid-template-columns: 1fr;
-            }
-            
-            .table-header {
-                flex-direction: column;
-                gap: 12px;
-                align-items: flex-start;
-            }
-            
-            .table-controls {
-                width: 100%;
-                justify-content: space-between;
-            }
-            
-            .pagination {
-                flex-direction: column;
-                gap: 12px;
             }
         }
     </style>
@@ -891,7 +677,7 @@
             <h1>GoInternet</h1>
         </div>
         <nav class="nav-menu">
-            <div class="nav-item">
+            <div class="nav-item active">
                 <i class="fas fa-home"></i>
                 <span>Dashboard</span>
             </div>
@@ -927,9 +713,17 @@
                 <i class="fas fa-clipboard-list"></i>
                 <span>Request Panels</span>
             </div>
-            <div class="nav-item active">
+            <div class="nav-item">
                 <i class="fas fa-chart-bar"></i>
                 <span>BTRC Reporting</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-check-double"></i>
+                <span>Data Validation</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-building"></i>
+                <span>Departments</span>
             </div>
         </nav>
     </aside>
@@ -943,503 +737,522 @@
             </button>
             <div class="search-bar">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search reports...">
+                <input type="text" placeholder="Search...">
             </div>
             <div class="user-profile">
                 <div class="notifications">
                     <i class="fas fa-bell"></i>
-                    <div class="notification-badge">3</div>
+                    <div class="notification-badge">5</div>
                 </div>
                 <img src="https://ui-avatars.com/api/?name=Admin+User&background=273073&color=fff" alt="Admin User">
                 <span>Admin User</span>
             </div>
         </div>
 
-        <!-- BTRC Content -->
-        <div class="btrc-container">
-            <div class="btrc-header">
-                <div class="btrc-title">
-                    <h2>BTRC Reporting</h2>
-                    <p>Generate BTRC-ready reports for regulatory compliance</p>
-                </div>
-                <div class="btrc-controls">
-                    <div class="filter-dropdown">
-                        <div class="filter-button">
-                            <i class="fas fa-calendar"></i>
-                            <span>Q2 2023</span>
-                        </div>
-                        <div class="filter-options">
-                            <div class="filter-option">
-                                <label for="period-filter">Time Period</label>
-                                <select id="period-filter">
-                                    <option value="month">Monthly</option>
-                                    <option value="quarter" selected>Quarterly</option>
-                                    <option value="year">Yearly</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 6.1 Report Generation Section -->
-            <div class="report-generation">
+        <!-- Core System Container -->
+        <div class="core-container">
+            <!-- 3.1 Map Dashboard -->
+            <div class="map-dashboard">
                 <div class="section-header">
-                    <div class="section-title">6.1 Report Generation</div>
-                    <div class="section-badge">Generate BTRC-ready reports</div>
+                    <div class="section-title">3.1 Map Dashboard</div>
+                    <div class="section-badge">Customer & App Users Location</div>
                 </div>
                 
-                <div class="generation-controls">
-                    <div class="control-group">
-                        <div class="control-label">Report Type</div>
-                        <select class="control-select">
-                            <option>Subscriber Report</option>
-                            <option>Active Connections</option>
-                            <option>Revenue Report</option>
-                            <option>Complaints Report</option>
+                <div class="map-filters">
+                    <div class="filter-group">
+                        <div class="filter-label">Profile Type</div>
+                        <select class="filter-select">
+                            <option>All Type</option>
+                            <option>Customers</option>
+                            <option>Employees</option>
                         </select>
                     </div>
-                    <div class="control-group">
-                        <div class="control-label">Time Period</div>
-                        <select class="control-select">
-                            <option>Q2 2023 (Apr-Jun)</option>
-                            <option>Q1 2023 (Jan-Mar)</option>
-                            <option>Q4 2022 (Oct-Dec)</option>
+                    <div class="filter-group">
+                        <div class="filter-label">Hierarchy Level</div>
+                        <select class="filter-select">
+                            <option>District-wise</option>
+                            <option>Division-wise</option>
+                            <option>Thana-wise</option>
                         </select>
                     </div>
-                    <div class="control-group">
-                        <div class="control-label">&nbsp;</div>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-sync-alt"></i>
-                            <span>Generate Report</span>
-                        </button>
+                    <div class="filter-group">
+                        <div class="filter-label">Online Status</div>
+                        <select class="filter-select">
+                            <option>Online Only</option>
+                            <option>Offline Only</option>
+                            <option>All Users</option>
+                        </select>
                     </div>
                 </div>
 
-                <!-- Manual Adjustment Panel (Before Printing) -->
-                <div class="adjustment-panel">
-                    <div class="adjustment-header">
-                        <i class="fas fa-pencil-alt"></i>
-                        <span>Before printing: Option to manually adjust package name & price</span>
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <div class="legend-dot online"></div>
+                        <span>Online user</span>
                     </div>
-                    <div class="adjustment-grid">
-                        <div class="adjustment-item">
-                            <label>Package Name (for reporting)</label>
-                            <input type="text" class="adjustment-input" value="Premium Fiber">
-                        </div>
-                        <div class="adjustment-item">
-                            <label>Package Price (for reporting)</label>
-                            <input type="text" class="adjustment-input" value="৳ 2,500">
-                        </div>
-                        <div class="adjustment-item">
-                            <label>Alternative Package Name</label>
-                            <input type="text" class="adjustment-input" value="Business Premium">
-                        </div>
-                        <div class="adjustment-item">
-                            <label>Alternative Price</label>
-                            <input type="text" class="adjustment-input" value="৳ 2,750">
+                    <div class="legend-item">
+                        <div class="legend-dot offline"></div>
+                        <span>Offline user</span>
+                    </div>
+                </div>
+
+                <div class="map-container">
+                    <div class="map-overlay">
+                        <div class="map-stats">
+                            <div class="stat-row">
+                                <span class="stat-label">Divison-wise Active:</span>
+                                <span class="stat-value">2,148</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Divison-wise Inactive:</span>
+                                <span class="stat-value">400</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">District-wise Active:</span>
+                                <span class="stat-value">64 Districts</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">District-wise Inactive:</span>
+                                <span class="stat-value">492</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="adjustment-note">
-                        <i class="fas fa-info-circle"></i>
-                        <span>Only for reporting, not actual billing data</span>
-                    </div>
+                    <!-- Map markers shown as background image with numbers -->
                 </div>
             </div>
 
-            <!-- Summary Widgets -->
-            <div class="summary-widgets">
-                <div class="summary-card">
-                    <div class="card-header">
-                        <div class="card-title">Total Active Subscribers</div>
-                        <div class="card-icon subscribers">
-                            <i class="fas fa-users"></i>
-                        </div>
-                    </div>
-                    <div class="card-value">24,589</div>
-                    <div class="card-trend positive">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>5.2% from last quarter</span>
-                    </div>
+            <!-- 3.2 Defaulter Management -->
+            <div class="defaulter-management">
+                <div class="section-header">
+                    <div class="section-title">3.2 Defaulter Management</div>
+                    <div class="section-badge">Filter & Manage Defaulters</div>
                 </div>
-                <div class="summary-card">
-                    <div class="card-header">
-                        <div class="card-title">New Connections This Quarter</div>
-                        <div class="card-icon connections">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                    </div>
-                    <div class="card-value">1,245</div>
-                    <div class="card-trend positive">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>3.8% from last quarter</span>
-                    </div>
+
+                <div class="hierarchy-filters">
+                    <select class="filter-input">
+                        <option>Division (All)</option>
+                        <option>Dhaka</option>
+                        <option>Chittagong</option>
+                    </select>
+                    <select class="filter-input">
+                        <option>District (All)</option>
+                        <option>Dhaka</option>
+                        <option>Gazipur</option>
+                    </select>
+                    <select class="filter-input">
+                        <option>Thana (All)</option>
+                        <option>Gulshan</option>
+                        <option>Banani</option>
+                    </select>
+                    <select class="filter-input">
+                        <option>Area (All)</option>
+                        <option>Area 1</option>
+                        <option>Area 2</option>
+                    </select>
+                    <select class="filter-input">
+                        <option>Road (All)</option>
+                        <option>Road 5</option>
+                        <option>Road 10</option>
+                    </select>
+                    <select class="filter-input">
+                        <option>POP (All)</option>
+                        <option>POP-Gulshan</option>
+                        <option>POP-Banani</option>
+                    </select>
                 </div>
-                <div class="summary-card">
-                    <div class="card-header">
-                        <div class="card-title">Total Revenue (Quarter)</div>
-                        <div class="card-icon revenue">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                    </div>
-                    <div class="card-value">৳ 12.5M</div>
-                    <div class="card-trend positive">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>7.1% from last quarter</span>
-                    </div>
+
+                <div class="status-filters">
+                    <div class="status-chip active">Due</div>
+                    <div class="status-chip">Overdue</div>
+                    <div class="status-chip">Suspended</div>
+                    <div class="status-chip">All</div>
                 </div>
-                <div class="summary-card">
-                    <div class="card-header">
-                        <div class="card-title">Complaint Count</div>
-                        <div class="card-icon complaints">
-                            <i class="fas fa-exclamation-circle"></i>
-                        </div>
-                    </div>
-                    <div class="card-value">342</div>
-                    <div class="card-trend negative">
-                        <i class="fas fa-arrow-up"></i>
-                        <span>2.3% from last quarter</span>
-                    </div>
+
+                <div class="defaulter-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Name</th>
+                                <th>Division</th>
+                                <th>District</th>
+                                <th>Thana</th>
+                                <th>Area</th>
+                                <th>Road</th>
+                                <th>POP</th>
+                                <th>Status</th>
+                                <th>Due Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>C-4587</td>
+                                <td>Abdul Rahman</td>
+                                <td>Dhaka</td>
+                                <td>Dhaka</td>
+                                <td>Gulshan</td>
+                                <td>Gulshan-1</td>
+                                <td>Road 5</td>
+                                <td>POP-Gulshan</td>
+                                <td><span class="status-badge status-due">Due</span></td>
+                                <td>৳ 2,500</td>
+                            </tr>
+                            <tr>
+                                <td>C-5291</td>
+                                <td>Fatima Begum</td>
+                                <td>Dhaka</td>
+                                <td>Dhaka</td>
+                                <td>Banani</td>
+                                <td>Banani-2</td>
+                                <td>Road 11</td>
+                                <td>POP-Banani</td>
+                                <td><span class="status-badge status-overdue">Overdue</span></td>
+                                <td>৳ 3,600</td>
+                            </tr>
+                            <tr>
+                                <td>C-3825</td>
+                                <td>Mohammad Ali</td>
+                                <td>Dhaka</td>
+                                <td>Gazipur</td>
+                                <td>Tongi</td>
+                                <td>Station Road</td>
+                                <td>Road 3</td>
+                                <td>POP-Tongi</td>
+                                <td><span class="status-badge status-suspended">Suspended</span></td>
+                                <td>৳ 5,200</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
-            <div class="btrc-content">
-                <!-- Report Table -->
-                <div class="report-table">
-                    <div class="table-header">
-                        <div class="table-title">Subscriber Report - Q2 2023</div>
-                        <div class="table-controls">
-                            <!-- 6.2 Export Options -->
-                            <div class="export-options">
-                                <div class="export-button">
-                                    <i class="fas fa-download"></i>
-                                    <span>Export</span>
-                                </div>
-                                <div class="export-menu">
-                                    <div class="export-option">
-                                        <i class="fas fa-file-pdf"></i>
-                                        <span>PDF</span>
-                                    </div>
-                                    <div class="export-option">
-                                        <i class="fas fa-file-excel"></i>
-                                        <span>Excel</span>
-                                    </div>
-                                    <div class="export-option">
-                                        <i class="fas fa-file-csv"></i>
-                                        <span>CSV</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Customer ID</th>
-                                    <th>Name</th>
-                                    <th>Service Type</th>
-                                    <th>Status</th>
-                                    <th>Subscription Date</th>
-                                    <th>Area / Zone</th>
-                                    <th>Revenue (৳)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>C-4587</td>
-                                    <td>Abdul Rahman</td>
-                                    <td>FTTH</td>
-                                    <td><span class="status-badge status-active">Active</span></td>
-                                    <td>15 Jan 2023</td>
-                                    <td>Gulshan</td>
-                                    <td>2,500</td>
-                                </tr>
-                                <tr>
-                                    <td>C-5291</td>
-                                    <td>Fatima Begum</td>
-                                    <td>Broadband</td>
-                                    <td><span class="status-badge status-active">Active</span></td>
-                                    <td>20 Feb 2023</td>
-                                    <td>Banani</td>
-                                    <td>1,200</td>
-                                </tr>
-                                <tr>
-                                    <td>C-3825</td>
-                                    <td>Mohammad Ali</td>
-                                    <td>Corporate</td>
-                                    <td><span class="status-badge status-active">Active</span></td>
-                                    <td>05 Mar 2023</td>
-                                    <td>Uttara</td>
-                                    <td>5,800</td>
-                                </tr>
-                                <tr>
-                                    <td>C-6743</td>
-                                    <td>Shamima Akter</td>
-                                    <td>FTTH</td>
-                                    <td><span class="status-badge status-inactive">Inactive</span></td>
-                                    <td>12 Apr 2023</td>
-                                    <td>Dhanmondi</td>
-                                    <td>2,500</td>
-                                </tr>
-                                <tr>
-                                    <td>C-8912</td>
-                                    <td>Rahim Khan</td>
-                                    <td>Broadband</td>
-                                    <td><span class="status-badge status-active">Active</span></td>
-                                    <td>18 May 2023</td>
-                                    <td>Mirpur</td>
-                                    <td>1,200</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="pagination">
-                        <div class="pagination-info">Showing 1-5 of 24,589 records</div>
-                        <div class="pagination-controls">
-                            <button class="pagination-btn">&lt;</button>
-                            <button class="pagination-btn active">1</button>
-                            <button class="pagination-btn">2</button>
-                            <button class="pagination-btn">3</button>
-                            <button class="pagination-btn">...</button>
-                            <button class="pagination-btn">4918</button>
-                            <button class="pagination-btn">&gt;</button>
-                        </div>
-                    </div>
+            <!-- 3.3 POP Monitoring (NOC) -->
+            <div class="pop-monitoring">
+                <div class="section-header">
+                    <div class="section-title">3.3 POP Monitoring (NOC)</div>
+                    <div class="section-badge">POP Health & Network Quality</div>
                 </div>
 
-                <!-- Compliance Panel -->
-                <div class="compliance-panel">
-                    <div class="compliance-header">
-                        <div class="compliance-title">Compliance Checklist</div>
+                <div class="pop-grid">
+                    <div class="pop-card active">
+                        <div class="pop-header">
+                            <span class="pop-name">POP-Gulshan-01</span>
+                            <span class="pop-status active">Active</span>
+                        </div>
+                        <div class="downtime-log">
+                            <i class="fas fa-clock"></i> Last downtime: 2 days ago (15 min)
+                        </div>
+                        <div class="network-metrics">
+                            <div class="metric">
+                                <div class="metric-label">Latency to Core</div>
+                                <div class="metric-value">12 ms</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-label">Latency to Upstream</div>
+                                <div class="metric-value">8 ms</div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="packetLoss1"></canvas>
+                        </div>
+                        <div style="font-size: 11px; color: var(--text-secondary); margin-top: 4px;">
+                            Data sources: Ping Monitor, SNMP, Router health
+                        </div>
                     </div>
-                    <div class="compliance-container">
-                        <div class="compliance-list">
-                            <div class="compliance-item">
-                                <div class="compliance-status complete">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <div class="compliance-info">
-                                    <div class="compliance-name">Subscriber Data</div>
-                                    <div class="compliance-desc">Complete with all required fields</div>
-                                </div>
+
+                    <div class="pop-card degraded">
+                        <div class="pop-header">
+                            <span class="pop-name">POP-Banani-02</span>
+                            <span class="pop-status degraded">Degraded</span>
+                        </div>
+                        <div class="downtime-log">
+                            <i class="fas fa-clock"></i> Last downtime: Today (5 min)
+                        </div>
+                        <div class="network-metrics">
+                            <div class="metric">
+                                <div class="metric-label">Latency to Core</div>
+                                <div class="metric-value">45 ms</div>
                             </div>
-                            <div class="compliance-item">
-                                <div class="compliance-status complete">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <div class="compliance-info">
-                                    <div class="compliance-name">Usage Data</div>
-                                    <div class="compliance-desc">Bandwidth consumption records</div>
-                                </div>
+                            <div class="metric">
+                                <div class="metric-label">Latency to Upstream</div>
+                                <div class="metric-value">38 ms</div>
                             </div>
-                            <div class="compliance-item">
-                                <div class="compliance-status complete">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <div class="compliance-info">
-                                    <div class="compliance-name">Complaint Data</div>
-                                    <div class="compliance-desc">All registered complaints</div>
-                                </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="packetLoss2"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="pop-card down">
+                        <div class="pop-header">
+                            <span class="pop-name">POP-Uttara-03</span>
+                            <span class="pop-status down">Down</span>
+                        </div>
+                        <div class="downtime-log">
+                            <i class="fas fa-clock"></i> Current downtime: 2h 15m
+                        </div>
+                        <div class="network-metrics">
+                            <div class="metric">
+                                <div class="metric-label">Latency to Core</div>
+                                <div class="metric-value">N/A</div>
                             </div>
-                            <div class="compliance-item">
-                                <div class="compliance-status pending">
-                                    <i class="fas fa-exclamation"></i>
-                                </div>
-                                <div class="compliance-info">
-                                    <div class="compliance-name">Revenue Data</div>
-                                    <div class="compliance-desc">Pending final audit</div>
-                                </div>
+                            <div class="metric">
+                                <div class="metric-label">Latency to Upstream</div>
+                                <div class="metric-value">N/A</div>
                             </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="packetLoss3"></canvas>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Charts Section -->
-            <div class="charts-section">
-                <div class="chart-card">
-                    <div class="chart-header">
-                        <div class="chart-title">Subscriber Growth</div>
+            <!-- 3.4 Traffic Monitoring -->
+            <div class="traffic-monitoring">
+                <div class="section-header">
+                    <div class="section-title">3.4 Traffic Monitoring</div>
+                    <div class="section-badge">TX / RX Traffic</div>
+                </div>
+
+                <div class="traffic-controls">
+                    <div class="filter-group">
+                        <select class="filter-select">
+                            <option>POP-wise</option>
+                            <option>POP link-wise</option>
+                        </select>
                     </div>
-                    <div class="chart-container">
-                        <canvas id="subscriberChart"></canvas>
+                    <div class="filter-group">
+                        <select class="filter-select">
+                            <option>Last 24 hours</option>
+                            <option>Last 7 days</option>
+                            <option>Last 30 days</option>
+                        </select>
                     </div>
                 </div>
-                <div class="chart-card">
-                    <div class="chart-header">
-                        <div class="chart-title">Service Type Distribution</div>
+
+                <div class="traffic-chart">
+                    <canvas id="trafficChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 3.5 POP-wise Client Insights -->
+            <div class="client-insights">
+                <div class="section-header">
+                    <div class="section-title">3.5 POP-wise Client Insights</div>
+                    <div class="section-badge">Per POP Statistics</div>
+                </div>
+
+                <div class="insights-grid">
+                    <div class="insight-card">
+                        <div class="insight-title">POP-Gulshan-01</div>
+                        <div class="insight-value">245</div>
+                        <div>Active clients</div>
+                        <div class="complaint-list">
+                            <div class="complaint-item">
+                                <span>Down/Blocked</span>
+                                <span>12</span>
+                            </div>
+                            <div class="complaint-item">
+                                <span>Defaulter</span>
+                                <span>8</span>
+                            </div>
+                            <div class="complaint-item">
+                                <span>Frequent complaints</span>
+                                <span>3</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="chart-container">
-                        <canvas id="serviceChart"></canvas>
+                    <div class="insight-card">
+                        <div class="insight-title">POP-Banani-02</div>
+                        <div class="insight-value">189</div>
+                        <div>Active clients</div>
+                        <div class="complaint-list">
+                            <div class="complaint-item">
+                                <span>Down/Blocked</span>
+                                <span>9</span>
+                            </div>
+                            <div class="complaint-item">
+                                <span>Defaulter</span>
+                                <span>5</span>
+                            </div>
+                            <div class="complaint-item">
+                                <span>Frequent complaints</span>
+                                <span>2</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="insight-card">
+                        <div class="insight-title">POP-Uttara-03</div>
+                        <div class="insight-value">312</div>
+                        <div>Active clients</div>
+                        <div class="complaint-list">
+                            <div class="complaint-item">
+                                <span>Down/Blocked</span>
+                                <span>15</span>
+                            </div>
+                            <div class="complaint-item">
+                                <span>Defaulter</span>
+                                <span>11</span>
+                            </div>
+                            <div class="complaint-item">
+                                <span>Frequent complaints</span>
+                                <span>7</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="chart-card">
-                    <div class="chart-header">
-                        <div class="chart-title">Revenue Trend</div>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="revenueChart"></canvas>
-                    </div>
+            </div>
+
+            <!-- 3.6 POP-wise Financial Report -->
+            <div class="financial-report">
+                <div class="section-header">
+                    <div class="section-title">3.6 POP-wise Financial Report</div>
+                    <div class="section-badge">Monthly Revenue & Collection</div>
+                </div>
+
+                <div class="financial-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>POP Name</th>
+                                <th>Monthly Revenue</th>
+                                <th>Overdue Amount</th>
+                                <th>Collection Efficiency</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>POP-Gulshan-01</td>
+                                <td>৳ 612,500</td>
+                                <td>৳ 28,500</td>
+                                <td>95.3%</td>
+                            </tr>
+                            <tr>
+                                <td>POP-Banani-02</td>
+                                <td>৳ 472,500</td>
+                                <td>৳ 19,200</td>
+                                <td>96.1%</td>
+                            </tr>
+                            <tr>
+                                <td>POP-Uttara-03</td>
+                                <td>৳ 780,000</td>
+                                <td>৳ 52,300</td>
+                                <td>93.2%</td>
+                            </tr>
+                            <tr>
+                                <td>POP-Dhanmondi-04</td>
+                                <td>৳ 523,000</td>
+                                <td>৳ 31,500</td>
+                                <td>94.8%</td>
+                            </tr>
+                            <tr>
+                                <td>POP-Mirpur-05</td>
+                                <td>৳ 428,000</td>
+                                <td>৳ 22,800</td>
+                                <td>94.2%</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </main>
 
     <script>
-        // Initialize the BTRC Reporting screen
         document.addEventListener('DOMContentLoaded', function() {
             // Toggle sidebar on mobile
             document.querySelector('.menu-toggle').addEventListener('click', function() {
                 document.querySelector('.sidebar').classList.toggle('active');
             });
-            
-            // Filter dropdown functionality
-            document.querySelector('.filter-button').addEventListener('click', function() {
-                document.querySelector('.filter-options').classList.toggle('active');
-            });
-            
-            // Close filter options when clicking elsewhere
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.filter-dropdown')) {
-                    document.querySelector('.filter-options').classList.remove('active');
-                }
-            });
-            
-            // Export options functionality
-            document.querySelector('.export-button').addEventListener('click', function() {
-                document.querySelector('.export-menu').classList.toggle('active');
-            });
-            
-            // Close export menu when clicking elsewhere
-            document.addEventListener('click', function(e) {
-                if (!e.target.closest('.export-options')) {
-                    document.querySelector('.export-menu').classList.remove('active');
-                }
-            });
-            
-            // Initialize charts
-            const subscriberCtx = document.getElementById('subscriberChart').getContext('2d');
-            const subscriberChart = new Chart(subscriberCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['Q1 2022', 'Q2 2022', 'Q3 2022', 'Q4 2022', 'Q1 2023', 'Q2 2023'],
-                    datasets: [{
-                        label: 'Total Subscribers',
-                        data: [18000, 19500, 21000, 22500, 23500, 24589],
-                        backgroundColor: '#273073',
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                drawBorder: false
-                            }
+
+            // Packet Loss Charts (mini line charts)
+            function createMiniChart(elementId, data) {
+                const ctx = document.getElementById(elementId);
+                if (ctx) {
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+                            datasets: [{
+                                data: data,
+                                borderColor: '#3B82F6',
+                                borderWidth: 2,
+                                fill: false,
+                                tension: 0.4,
+                                pointRadius: 0
+                            }]
                         },
-                        x: {
-                            grid: {
-                                display: false
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: { enabled: false }
+                            },
+                            scales: {
+                                x: { display: false },
+                                y: { display: false }
+                            },
+                            elements: {
+                                line: { borderWidth: 2 }
                             }
                         }
-                    }
+                    });
                 }
-            });
-            
-            const serviceCtx = document.getElementById('serviceChart').getContext('2d');
-            const serviceChart = new Chart(serviceCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['FTTH', 'Broadband', 'Corporate'],
-                    datasets: [{
-                        data: [45, 35, 20],
-                        backgroundColor: [
-                            '#273073',
-                            '#3B82F6',
-                            '#22C55E'
-                        ],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }
-            });
-            
-            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-            const revenueChart = new Chart(revenueCtx, {
-                type: 'line',
-                data: {
-                    labels: ['Q1 2022', 'Q2 2022', 'Q3 2022', 'Q4 2022', 'Q1 2023', 'Q2 2023'],
-                    datasets: [{
-                        label: 'Revenue (in ৳)',
-                        data: [8500000, 9200000, 9800000, 10500000, 11600000, 12500000],
-                        borderColor: '#273073',
-                        backgroundColor: 'rgba(39, 48, 115, 0.1)',
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false
-                        }
+            }
+
+            createMiniChart('packetLoss1', [0.2, 0.3, 0.1, 0.2, 0.4, 0.2]);
+            createMiniChart('packetLoss2', [2.5, 3.1, 2.8, 3.5, 4.2, 3.8]);
+            createMiniChart('packetLoss3', [0, 0, 0, 0, 0, 0]);
+
+            // Traffic Chart
+            const trafficCtx = document.getElementById('trafficChart');
+            if (trafficCtx) {
+                new Chart(trafficCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
+                        datasets: [
+                            {
+                                label: 'TX Traffic (Mbps)',
+                                data: [120, 95, 80, 110, 350, 520, 580, 610, 590, 620, 480, 320],
+                                borderColor: '#273073',
+                                backgroundColor: 'rgba(39, 48, 115, 0.1)',
+                                fill: true,
+                                tension: 0.4
+                            },
+                            {
+                                label: 'RX Traffic (Mbps)',
+                                data: [150, 110, 95, 130, 380, 550, 610, 640, 620, 650, 510, 350],
+                                borderColor: '#22C55E',
+                                backgroundColor: 'rgba(34, 197, 94, 0.1)',
+                                fill: true,
+                                tension: 0.4
+                            }
+                        ]
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: false,
-                            grid: {
-                                drawBorder: false
-                            }
-                        },
-                        x: {
-                            grid: {
-                                display: false
-                            }
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'top' }
                         }
                     }
-                }
-            });
-            
-            // Generate report button
-            document.querySelector('.btn-primary').addEventListener('click', function() {
-                alert('Generating BTRC report for Q2 2023...');
-                // In a real application, this would trigger an API call to generate the report
-            });
-            
-            // Export options
-            document.querySelectorAll('.export-option').forEach(option => {
-                option.addEventListener('click', function() {
-                    const format = this.querySelector('span').textContent;
-                    alert(`Exporting report as ${format} format...`);
-                    document.querySelector('.export-menu').classList.remove('active');
+                });
+            }
+
+            // Status chip click
+            document.querySelectorAll('.status-chip').forEach(chip => {
+                chip.addEventListener('click', function() {
+                    document.querySelectorAll('.status-chip').forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
                 });
             });
-            
-            // Manual adjustment inputs - show that they're editable
-            document.querySelectorAll('.adjustment-input').forEach(input => {
-                input.addEventListener('change', function() {
-                    console.log('Package adjustment changed:', this.value);
-                    // In a real app, this would update the report preview
-                });
+
+            // Map marker click simulation
+            document.querySelector('.map-container').addEventListener('click', function(e) {
+                alert('User details: Name: Abdul Rahman\nPackage: Premium 50 Mbps\nStatus: Online');
             });
         });
     </script>
