@@ -3,420 +3,1445 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboards · NOC · Billing · Tasks · Marketing</title>
-    <!-- Font Awesome 6 (free icons) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>GoInternet - BTRC Reporting</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
+        :root {
+            --primary: #273073;
+            --secondary: #22C55E;
+            --alert: #EF4444;
+            --warning: #F59E0B;
+            --info: #3B82F6;
+            --background: linear-gradient(to bottom, #F8F9FA, #FFFFFF);
+            --card-bg: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --text-primary: #1F2937;
+            --text-secondary: #6B7280;
+            --sidebar-width: 250px;
+            --header-height: 70px;
+            --border-radius: 12px;
+            --transition: all 0.3s ease;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background: #f1f5f9;
-            padding: 2rem 1.5rem;
+            background: var(--background);
+            color: var(--text-primary);
             min-height: 100vh;
             display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        .logo {
+            padding: 24px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
             justify-content: center;
         }
 
-        .container {
-            max-width: 1400px;
-            width: 100%;
+        .logo h1 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-left: 10px;
         }
 
-        h1 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: #0f172a;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.01em;
+        .logo-icon {
+            font-size: 28px;
+        }
+
+        .nav-menu {
+            padding: 16px 0;
+        }
+
+        .nav-item {
+            padding: 12px 24px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+            border-left: 4px solid transparent;
         }
 
-        h1 i {
-            color: #3b82f6;
-            font-size: 2rem;
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
 
-        /* main grid – 2 columns on desktop, 1 on mobile */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.2);
+            border-left: 4px solid var(--secondary);
         }
 
-        /* each dashboard card */
-        .dashboard-card {
-            background: white;
-            border-radius: 1.5rem;
-            padding: 1.5rem 1.2rem;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
-            transition: all 0.2s ease;
-            border: 1px solid rgba(0,0,0,0.02);
+        .nav-item i {
+            margin-right: 12px;
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
         }
 
-        .dashboard-card:hover {
-            box-shadow: 0 20px 30px -10px rgba(0,100,200,0.15);
-            transform: translateY(-2px);
-        }
-
-        .dashboard-card h2 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 1.2rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #e2e8f0;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .dashboard-card h2 i {
-            color: #3b82f6;
-            font-size: 1.3rem;
-        }
-
-        /* inner sub‑card grid */
-        .card-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 1rem;
-        }
-
-        .sub-card {
-            background: #f8fafc;
-            border-radius: 1rem;
-            padding: 1rem 0.9rem;
-            border: 1px solid #e9eef3;
-            transition: background 0.15s;
-        }
-
-        .sub-card:hover {
-            background: #ffffff;
-            border-color: #cbd5e1;
-        }
-
-        .sub-card h3 {
-            font-size: 0.9rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.02em;
-            color: #475569;
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .sub-card h3 i {
-            color: #64748b;
-            font-size: 1rem;
-        }
-
-        /* --- custom elements --- */
-        .status-indicators {
-            line-height: 1.8;
-            font-size: 0.9rem;
-        }
-
-        .status-green, .status-yellow, .status-red {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-right: 6px;
-            box-shadow: 0 0 0 2px rgba(255,255,255,0.5);
-        }
-        .status-green { background: #22c55e; }
-        .status-yellow { background: #eab308; }
-        .status-red { background: #ef4444; }
-
-        .big-number {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #0f172a;
-            line-height: 1.2;
-        }
-
-        .trend-up {
-            color: #10b981;
-            font-weight: 600;
-            font-size: 0.9rem;
-            background: #d1fae5;
-            padding: 0.2rem 0.5rem;
-            border-radius: 20px;
-            display: inline-block;
-        }
-
-        .trend-down {
-            color: #ef4444;
-            background: #fee2e2;
-            padding: 0.2rem 0.5rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        /* custom progress bars (instead of native <progress>) */
-        .progress-container {
-            background: #e2e8f0;
-            height: 8px;
-            border-radius: 20px;
-            margin: 0.5rem 0 0.8rem 0;
-            overflow: hidden;
-            width: 100%;
-        }
-
-        .progress-fill {
-            background: #3b82f6;
-            height: 8px;
-            border-radius: 20px;
-            width: 0%; /* set inline */
-        }
-
-        .progress-fill.green { background: #10b981; }
-        .progress-fill.yellow { background: #f59e0b; }
-        .progress-fill.red { background: #ef4444; }
-
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            margin-bottom: 0.2rem;
-            color: #334155;
-        }
-
-        .mini-chart {
-            display: flex;
-            align-items: flex-end;
-            gap: 4px;
-            margin-top: 10px;
-            height: 40px;
-        }
-        .mini-chart .bar {
+        /* Main Content */
+        .main-content {
             flex: 1;
-            background: #3b82f6;
-            border-radius: 4px 4px 0 0;
-            min-width: 6px;
+            margin-left: var(--sidebar-width);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            transition: var(--transition);
         }
 
-        ul {
-            list-style: none;
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: var(--card-bg);
+            box-shadow: 0 2px 4px var(--shadow);
+            height: var(--header-height);
+            z-index: 100;
         }
-        ul li {
-            padding: 0.2rem 0;
-            font-size: 0.9rem;
-            border-bottom: 1px dashed #e2e8f0;
-        }
-        ul li:last-child { border: none; }
 
-        /* small adjustments */
-        .sub-card progress {
-            width: 100%;
-            height: 8px;
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--primary);
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: #F3F4F6;
             border-radius: 20px;
-            accent-color: #3b82f6;
+            padding: 8px 16px;
+            width: 300px;
         }
-        /* fallback if we use <progress> */
-        progress {
-            width: 100%;
-            height: 8px;
-            border-radius: 20px;
-        }
-        progress::-webkit-progress-bar { background: #e2e8f0; border-radius: 20px; }
-        progress::-webkit-progress-value { background: #3b82f6; border-radius: 20px; }
 
-        /* responsive */
-        @media (max-width: 900px) {
-            .dashboard-grid {
+        .search-bar input {
+            border: none;
+            background: transparent;
+            padding: 8px;
+            width: 100%;
+            outline: none;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+
+        .notifications {
+            position: relative;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--alert);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* BTRC Content */
+        .btrc-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            gap: 20px;
+            overflow: hidden;
+        }
+
+        .btrc-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btrc-title h2 {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .btrc-title p {
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
+        .btrc-controls {
+            display: flex;
+            gap: 16px;
+        }
+
+        .filter-dropdown {
+            position: relative;
+        }
+
+        .filter-button {
+            background: var(--card-bg);
+            border: 1px solid #E5E7EB;
+            border-radius: var(--border-radius);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-button:hover {
+            border-color: var(--primary);
+        }
+
+        .filter-options {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px var(--shadow);
+            padding: 16px;
+            margin-top: 8px;
+            min-width: 200px;
+            z-index: 10;
+            display: none;
+        }
+
+        .filter-options.active {
+            display: block;
+        }
+
+        .filter-option {
+            margin-bottom: 12px;
+        }
+
+        .filter-option:last-child {
+            margin-bottom: 0;
+        }
+
+        .filter-option label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+
+        .filter-option select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1e2a5f;
+        }
+
+        .btn-secondary {
+            background: #F3F4F6;
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: #E5E7EB;
+        }
+
+        /* Report Generation Section */
+        .report-generation {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .section-badge {
+            background: rgba(39, 48, 115, 0.1);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .generation-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .control-select {
+            padding: 10px 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: var(--border-radius);
+            background: white;
+        }
+
+        .adjustment-panel {
+            background: #F9FAFB;
+            border-radius: var(--border-radius);
+            padding: 16px;
+            margin: 20px 0;
+        }
+
+        .adjustment-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .adjustment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .adjustment-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .adjustment-item label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .adjustment-input {
+            padding: 8px 12px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .adjustment-note {
+            font-size: 12px;
+            color: var(--warning);
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Summary Widgets */
+        .summary-widgets {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .summary-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 4px 6px var(--shadow);
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .summary-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px var(--shadow);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-icon.subscribers {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--info);
+        }
+
+        .card-icon.connections {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--secondary);
+        }
+
+        .card-icon.revenue {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+
+        .card-icon.complaints {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--alert);
+        }
+
+        .card-value {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .card-trend {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .card-trend.positive {
+            color: var(--secondary);
+        }
+
+        .card-trend.negative {
+            color: var(--alert);
+        }
+
+        /* Content Area */
+        .btrc-content {
+            display: flex;
+            gap: 20px;
+            height: calc(100% - 280px);
+        }
+
+        /* Report Table */
+        .report-table {
+            flex: 1;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .table-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .table-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .table-controls {
+            display: flex;
+            gap: 12px;
+        }
+
+        .export-options {
+            position: relative;
+        }
+
+        .export-button {
+            background: var(--primary);
+            color: white;
+            padding: 10px 16px;
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .export-button:hover {
+            background: #1e2a5f;
+        }
+
+        .export-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px var(--shadow);
+            padding: 8px;
+            margin-top: 8px;
+            min-width: 150px;
+            z-index: 10;
+            display: none;
+        }
+
+        .export-menu.active {
+            display: block;
+        }
+
+        .export-option {
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .export-option:hover {
+            background: #F3F4F6;
+        }
+
+        .table-container {
+            flex: 1;
+            overflow: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        th {
+            background: #F9FAFB;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+            cursor: pointer;
+        }
+
+        th:hover {
+            background: #F3F4F6;
+        }
+
+        tr:hover {
+            background: #F9FAFB;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: rgba(34, 197, 94, 0.1);
+            color: var(--secondary);
+        }
+
+        .status-inactive {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--alert);
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            border-top: 1px solid #E5E7EB;
+        }
+
+        .pagination-info {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .pagination-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .pagination-btn {
+            padding: 8px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 1px solid #E5E7EB;
+            background: var(--card-bg);
+        }
+
+        .pagination-btn:hover {
+            background: #F3F4F6;
+        }
+
+        .pagination-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Compliance Panel */
+        .compliance-panel {
+            width: 300px;
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 6px var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .compliance-header {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .compliance-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .compliance-container {
+            flex: 1;
+            overflow: auto;
+            padding: 20px;
+        }
+
+        .compliance-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .compliance-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #F9FAFB;
+            border-radius: var(--border-radius);
+        }
+
+        .compliance-status {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+        }
+
+        .compliance-status.complete {
+            background: var(--secondary);
+        }
+
+        .compliance-status.pending {
+            background: var(--warning);
+        }
+
+        .compliance-info {
+            flex: 1;
+        }
+
+        .compliance-name {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .compliance-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Charts Section */
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .chart-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .chart-container {
+            height: 250px;
+            position: relative;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .btrc-content {
+                flex-direction: column;
+            }
+            
+            .compliance-panel {
+                width: 100%;
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 16px;
+                height: auto;
+                padding: 12px;
+            }
+            
+            .user-profile {
+                width: 100%;
+                justify-content: flex-end;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+            
+            .btrc-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+            
+            .btrc-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .filter-dropdown {
+                width: 100%;
+            }
+            
+            .filter-button {
+                width: 100%;
+            }
+            
+            .filter-options {
+                width: 100%;
+                right: auto;
+                left: 0;
+            }
+            
+            .btrc-container {
+                padding: 10px;
+            }
+            
+            .generation-controls {
+                grid-template-columns: 1fr;
+            }
+            
+            .adjustment-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-section {
                 grid-template-columns: 1fr;
             }
         }
-        @media (max-width: 480px) {
-            body { padding: 1rem; }
-            .card-content {
+
+        @media (max-width: 576px) {
+            .summary-widgets {
                 grid-template-columns: 1fr;
+            }
+            
+            .table-header {
+                flex-direction: column;
+                gap: 12px;
+                align-items: flex-start;
+            }
+            
+            .table-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .pagination {
+                flex-direction: column;
+                gap: 12px;
             }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>
-        <i class="fas fa-chart-pie"></i> 
-        Additional Admin Dashboards
-    </h1>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fas fa-wifi logo-icon"></i>
+            <h1>GoInternet</h1>
+        </div>
+        <nav class="nav-menu">
+            <div class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>Dashboard</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <span>Customer Map</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-network-wired"></i>
+                <span>Fiber Management</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-router"></i>
+                <span>MikroTik Integration</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-money-bill-wave"></i>
+                <span>Defaulter List</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-server"></i>
+                <span>POP Monitoring</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-file-invoice-dollar"></i>
+                <span>Billing Management</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-comments"></i>
+                <span>Internal Messaging</span>
+            </div>
+            <div class="nav-item">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Request Panels</span>
+            </div>
+            <div class="nav-item active">
+                <i class="fas fa-chart-bar"></i>
+                <span>BTRC Reporting</span>
+            </div>
+        </nav>
+    </aside>
 
-    <div class="dashboard-grid">
-        
-        <!-- 7.1 NOC Report -->
-        <div class="dashboard-card">
-            <h2><i class="fas fa-network-wired"></i> 7.1 NOC Report</h2>
-            <div class="card-content">
-                <!-- Network status -->
-                <div class="sub-card">
-                    <h3>Network status <i class="fas fa-wifi"></i></h3>
-                    <div class="status-indicators">
-                        <span class="status-green"></span> Core router – stable<br>
-                        <span class="status-yellow"></span> Edge switch 1 – degraded<br>
-                        <span class="status-green"></span> POP London – online<br>
-                        <span class="status-red"></span> POP Frankfurt – down<br>
-                        <span class="status-green"></span> POP Singapore – online
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <div class="header">
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search reports...">
+            </div>
+            <div class="user-profile">
+                <div class="notifications">
+                    <i class="fas fa-bell"></i>
+                    <div class="notification-badge">3</div>
+                </div>
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=273073&color=fff" alt="Admin User">
+                <span>Admin User</span>
+            </div>
+        </div>
+
+        <!-- BTRC Content -->
+        <div class="btrc-container">
+            <div class="btrc-header">
+                <div class="btrc-title">
+                    <h2>BTRC Reporting</h2>
+                    <p>Generate BTRC-ready reports for regulatory compliance</p>
+                </div>
+                <div class="btrc-controls">
+                    <div class="filter-dropdown">
+                        <div class="filter-button">
+                            <i class="fas fa-calendar"></i>
+                            <span>Q2 2023</span>
+                        </div>
+                        <div class="filter-options">
+                            <div class="filter-option">
+                                <label for="period-filter">Time Period</label>
+                                <select id="period-filter">
+                                    <option value="month">Monthly</option>
+                                    <option value="quarter" selected>Quarterly</option>
+                                    <option value="year">Yearly</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- POP uptime -->
-                <div class="sub-card">
-                    <h3>POP uptime <i class="fas fa-arrow-trend-up"></i></h3>
-                    <div class="stat-row"><span>NYC</span> <span>99.9%</span></div>
-                    <div class="progress-container"><div class="progress-fill" style="width:99.9%"></div></div>
-                    <div class="stat-row"><span>LON</span> <span>98.5%</span></div>
-                    <div class="progress-container"><div class="progress-fill" style="width:98.5%"></div></div>
-                    <div class="stat-row"><span>FRA</span> <span>95.2%</span></div>
-                    <div class="progress-container"><div class="progress-fill yellow" style="width:95.2%"></div></div>
-                    <div class="stat-row"><span>SGP</span> <span>99.2%</span></div>
-                    <div class="progress-container"><div class="progress-fill" style="width:99.2%"></div></div>
+            </div>
+
+            <!-- 6.1 Report Generation Section -->
+            <div class="report-generation">
+                <div class="section-header">
+                    <div class="section-title">6.1 Report Generation</div>
+                    <div class="section-badge">Generate BTRC-ready reports</div>
                 </div>
-                <!-- Ticket summary -->
-                <div class="sub-card">
-                    <h3>Ticket summary <i class="fas fa-ticket"></i></h3>
-                    <div class="stat-row"><span>Open</span> <strong>24</strong></div>
-                    <div class="stat-row"><span>Closed (today)</span> <strong>156</strong></div>
-                    <div class="stat-row"><span>Avg response</span> <strong>2.3h</strong></div>
-                    <div class="stat-row"><span>Critical</span> <strong class="trend-down">3</strong></div>
-                    <div style="margin-top:8px;">
-                        <span style="font-size:0.8rem; color:#475569;">SLA compliance 98%</span>
-                        <div class="progress-container"><div class="progress-fill green" style="width:98%"></div></div>
+                
+                <div class="generation-controls">
+                    <div class="control-group">
+                        <div class="control-label">Report Type</div>
+                        <select class="control-select">
+                            <option>Subscriber Report</option>
+                            <option>Active Connections</option>
+                            <option>Revenue Report</option>
+                            <option>Complaints Report</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <div class="control-label">Time Period</div>
+                        <select class="control-select">
+                            <option>Q2 2023 (Apr-Jun)</option>
+                            <option>Q1 2023 (Jan-Mar)</option>
+                            <option>Q4 2022 (Oct-Dec)</option>
+                        </select>
+                    </div>
+                    <div class="control-group">
+                        <div class="control-label">&nbsp;</div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-sync-alt"></i>
+                            <span>Generate Report</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Manual Adjustment Panel (Before Printing) -->
+                <div class="adjustment-panel">
+                    <div class="adjustment-header">
+                        <i class="fas fa-pencil-alt"></i>
+                        <span>Before printing: Option to manually adjust package name & price</span>
+                    </div>
+                    <div class="adjustment-grid">
+                        <div class="adjustment-item">
+                            <label>Package Name (for reporting)</label>
+                            <input type="text" class="adjustment-input" value="Premium Fiber">
+                        </div>
+                        <div class="adjustment-item">
+                            <label>Package Price (for reporting)</label>
+                            <input type="text" class="adjustment-input" value="৳ 2,500">
+                        </div>
+                        <div class="adjustment-item">
+                            <label>Alternative Package Name</label>
+                            <input type="text" class="adjustment-input" value="Business Premium">
+                        </div>
+                        <div class="adjustment-item">
+                            <label>Alternative Price</label>
+                            <input type="text" class="adjustment-input" value="৳ 2,750">
+                        </div>
+                    </div>
+                    <div class="adjustment-note">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Only for reporting, not actual billing data</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Widgets -->
+            <div class="summary-widgets">
+                <div class="summary-card">
+                    <div class="card-header">
+                        <div class="card-title">Total Active Subscribers</div>
+                        <div class="card-icon subscribers">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">24,589</div>
+                    <div class="card-trend positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>5.2% from last quarter</span>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="card-header">
+                        <div class="card-title">New Connections This Quarter</div>
+                        <div class="card-icon connections">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">1,245</div>
+                    <div class="card-trend positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>3.8% from last quarter</span>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="card-header">
+                        <div class="card-title">Total Revenue (Quarter)</div>
+                        <div class="card-icon revenue">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">৳ 12.5M</div>
+                    <div class="card-trend positive">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>7.1% from last quarter</span>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="card-header">
+                        <div class="card-title">Complaint Count</div>
+                        <div class="card-icon complaints">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                    </div>
+                    <div class="card-value">342</div>
+                    <div class="card-trend negative">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>2.3% from last quarter</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="btrc-content">
+                <!-- Report Table -->
+                <div class="report-table">
+                    <div class="table-header">
+                        <div class="table-title">Subscriber Report - Q2 2023</div>
+                        <div class="table-controls">
+                            <!-- 6.2 Export Options -->
+                            <div class="export-options">
+                                <div class="export-button">
+                                    <i class="fas fa-download"></i>
+                                    <span>Export</span>
+                                </div>
+                                <div class="export-menu">
+                                    <div class="export-option">
+                                        <i class="fas fa-file-pdf"></i>
+                                        <span>PDF</span>
+                                    </div>
+                                    <div class="export-option">
+                                        <i class="fas fa-file-excel"></i>
+                                        <span>Excel</span>
+                                    </div>
+                                    <div class="export-option">
+                                        <i class="fas fa-file-csv"></i>
+                                        <span>CSV</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Customer ID</th>
+                                    <th>Name</th>
+                                    <th>Service Type</th>
+                                    <th>Status</th>
+                                    <th>Subscription Date</th>
+                                    <th>Area / Zone</th>
+                                    <th>Revenue (৳)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>C-4587</td>
+                                    <td>Abdul Rahman</td>
+                                    <td>FTTH</td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                    <td>15 Jan 2023</td>
+                                    <td>Gulshan</td>
+                                    <td>2,500</td>
+                                </tr>
+                                <tr>
+                                    <td>C-5291</td>
+                                    <td>Fatima Begum</td>
+                                    <td>Broadband</td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                    <td>20 Feb 2023</td>
+                                    <td>Banani</td>
+                                    <td>1,200</td>
+                                </tr>
+                                <tr>
+                                    <td>C-3825</td>
+                                    <td>Mohammad Ali</td>
+                                    <td>Corporate</td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                    <td>05 Mar 2023</td>
+                                    <td>Uttara</td>
+                                    <td>5,800</td>
+                                </tr>
+                                <tr>
+                                    <td>C-6743</td>
+                                    <td>Shamima Akter</td>
+                                    <td>FTTH</td>
+                                    <td><span class="status-badge status-inactive">Inactive</span></td>
+                                    <td>12 Apr 2023</td>
+                                    <td>Dhanmondi</td>
+                                    <td>2,500</td>
+                                </tr>
+                                <tr>
+                                    <td>C-8912</td>
+                                    <td>Rahim Khan</td>
+                                    <td>Broadband</td>
+                                    <td><span class="status-badge status-active">Active</span></td>
+                                    <td>18 May 2023</td>
+                                    <td>Mirpur</td>
+                                    <td>1,200</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <div class="pagination-info">Showing 1-5 of 24,589 records</div>
+                        <div class="pagination-controls">
+                            <button class="pagination-btn">&lt;</button>
+                            <button class="pagination-btn active">1</button>
+                            <button class="pagination-btn">2</button>
+                            <button class="pagination-btn">3</button>
+                            <button class="pagination-btn">...</button>
+                            <button class="pagination-btn">4918</button>
+                            <button class="pagination-btn">&gt;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compliance Panel -->
+                <div class="compliance-panel">
+                    <div class="compliance-header">
+                        <div class="compliance-title">Compliance Checklist</div>
+                    </div>
+                    <div class="compliance-container">
+                        <div class="compliance-list">
+                            <div class="compliance-item">
+                                <div class="compliance-status complete">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="compliance-info">
+                                    <div class="compliance-name">Subscriber Data</div>
+                                    <div class="compliance-desc">Complete with all required fields</div>
+                                </div>
+                            </div>
+                            <div class="compliance-item">
+                                <div class="compliance-status complete">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="compliance-info">
+                                    <div class="compliance-name">Usage Data</div>
+                                    <div class="compliance-desc">Bandwidth consumption records</div>
+                                </div>
+                            </div>
+                            <div class="compliance-item">
+                                <div class="compliance-status complete">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                                <div class="compliance-info">
+                                    <div class="compliance-name">Complaint Data</div>
+                                    <div class="compliance-desc">All registered complaints</div>
+                                </div>
+                            </div>
+                            <div class="compliance-item">
+                                <div class="compliance-status pending">
+                                    <i class="fas fa-exclamation"></i>
+                                </div>
+                                <div class="compliance-info">
+                                    <div class="compliance-name">Revenue Data</div>
+                                    <div class="compliance-desc">Pending final audit</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-section">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Subscriber Growth</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="subscriberChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Service Type Distribution</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="serviceChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <div class="chart-title">Revenue Trend</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="revenueChart"></canvas>
                     </div>
                 </div>
             </div>
         </div>
+    </main>
 
-        <!-- 7.2 Billing & Finance Dashboard -->
-        <div class="dashboard-card">
-            <h2><i class="fas fa-coins"></i> 7.2 Billing & Finance</h2>
-            <div class="card-content">
-                <!-- Revenue -->
-                <div class="sub-card">
-                    <h3>Revenue <i class="fas fa-dollar-sign"></i></h3>
-                    <div class="big-number">$124.5k</div>
-                    <span class="trend-up"><i class="fas fa-arrow-up"></i> 8.2%</span>
-                    <div style="margin-top:8px; font-size:0.8rem;">vs last month $115k</div>
-                </div>
-                <!-- Collection -->
-                <div class="sub-card">
-                    <h3>Collection <i class="fas fa-hand-holding-heart"></i></h3>
-                    <div class="big-number">92%</div>
-                    <div class="progress-container"><div class="progress-fill green" style="width:92%"></div></div>
-                    <div class="stat-row"><span>Invoiced</span> $135k</div>
-                    <div class="stat-row"><span>Collected</span> $124k</div>
-                </div>
-                <!-- Overdue -->
-                <div class="sub-card">
-                    <h3>Overdue <i class="fas fa-exclamation-circle"></i></h3>
-                    <div class="big-number">$12.3k</div>
-                    <div class="stat-row"><span>30‑60d</span> $8.0k</div>
-                    <div class="stat-row"><span>60d+</span> $4.3k</div>
-                    <div style="background:#fee2e2; border-radius:12px; padding:0.2rem 0.5rem; font-size:0.8rem; margin-top:6px;">
-                        <i class="fas fa-clock"></i> 11 customers
-                    </div>
-                </div>
-                <!-- Trends -->
-                <div class="sub-card">
-                    <h3>Trends <i class="fas fa-chart-line"></i></h3>
-                    <div class="mini-chart">
-                        <div class="bar" style="height:20px;"></div>
-                        <div class="bar" style="height:32px;"></div>
-                        <div class="bar" style="height:28px;"></div>
-                        <div class="bar" style="height:36px;"></div>
-                        <div class="bar" style="height:30px;"></div>
-                    </div>
-                    <div class="stat-row" style="margin-top:6px;"><span>May</span> $120k</div>
-                    <div class="stat-row"><span>Jun</span> $124k</div>
-                    <div class="stat-row"><span>Jul</span> $130k</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 7.3 Task & Attendance Dashboard -->
-        <div class="dashboard-card">
-            <h2><i class="fas fa-clipboard-list"></i> 7.3 Task & Attendance</h2>
-            <div class="card-content">
-                <!-- Employee productivity -->
-                <div class="sub-card">
-                    <h3>Employee productivity <i class="fas fa-user-check"></i></h3>
-                    <ul>
-                        <li><i class="fas fa-circle" style="color:#22c55e; font-size:0.5rem;"></i> John D. – 12/15 tasks</li>
-                        <li><i class="fas fa-circle" style="color:#eab308; font-size:0.5rem;"></i> Jane S. – 8/10 tasks</li>
-                        <li><i class="fas fa-circle" style="color:#22c55e; font-size:0.5rem;"></i> Bob L. – 5/5 tasks</li>
-                        <li><i class="fas fa-circle" style="color:#ef4444; font-size:0.5rem;"></i> Alice K. – 2/6 tasks</li>
-                    </ul>
-                    <div class="stat-row" style="margin-top:8px;"><span>Team progress</span> 74%</div>
-                    <div class="progress-container"><div class="progress-fill" style="width:74%"></div></div>
-                </div>
-                <!-- Attendance summary -->
-                <div class="sub-card">
-                    <h3>Attendance summary <i class="fas fa-calendar-day"></i></h3>
-                    <div style="display: flex; justify-content: space-around; margin: 8px 0;">
-                        <div><span style="font-weight:700; font-size:1.5rem;">42</span><br><span style="color:#475569;">present</span></div>
-                        <div><span style="font-weight:700; font-size:1.5rem;">3</span><br><span style="color:#475569;">absent</span></div>
-                        <div><span style="font-weight:700; font-size:1.5rem;">5</span><br><span style="color:#475569;">leave</span></div>
-                    </div>
-                    <div class="stat-row">Present 84%</div>
-                    <div class="progress-container"><div class="progress-fill green" style="width:84%"></div></div>
-                    <div class="stat-row"><span>Late arrivals</span> 2 today</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- 7.4 Marketing Performance & Leads -->
-        <div class="dashboard-card">
-            <h2><i class="fas fa-chart-simple"></i> 7.4 Marketing Performance & Leads</h2>
-            <div class="card-content">
-                <!-- Leads collected -->
-                <div class="sub-card">
-                    <h3>Leads collected <i class="fas fa-user-plus"></i></h3>
-                    <div class="stat-row"><span>Organic</span> <strong>340</strong></div>
-                    <div class="stat-row"><span>Paid</span> <strong>210</strong></div>
-                    <div class="stat-row"><span>Referral</span> <strong>95</strong></div>
-                    <div class="stat-row"><span>Total</span> <strong>645</strong></div>
-                    <div style="margin-top:8px; background:#e0f2fe; border-radius:12px; padding:4px 8px; font-size:0.8rem;">
-                        <i class="fas fa-tag"></i> CPL: $12.40
-                    </div>
-                </div>
-                <!-- Conversion rate -->
-                <div class="sub-card">
-                    <h3>Conversion rate <i class="fas fa-percent"></i></h3>
-                    <div class="big-number" style="font-size:1.4rem;">23% / 47%</div>
-                    <div class="stat-row"><span>Lead→Opp</span> 23%</div>
-                    <div class="progress-container"><div class="progress-fill" style="width:23%"></div></div>
-                    <div class="stat-row"><span>Opp→Close</span> 47%</div>
-                    <div class="progress-container"><div class="progress-fill green" style="width:47%"></div></div>
-                </div>
-                <!-- Area-wise demand -->
-                <div class="sub-card">
-                    <h3>Area-wise demand <i class="fas fa-location-dot"></i></h3>
-                    <div class="stat-row"><span>🇺🇸 New York</span> 142 leads</div>
-                    <div class="stat-row"><span>🇺🇸 Los Angeles</span> 98 leads</div>
-                    <div class="stat-row"><span>🇺🇸 Chicago</span> 75 leads</div>
-                    <div class="stat-row"><span>🇬🇧 London</span> 63 leads</div>
-                    <div style="margin-top:8px;">
-                        <span style="background:#f1f5f9; padding:0.2rem 0.6rem; border-radius:12px;">🔥 highest: NYC</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- subtle footer (optional) -->
-    <div style="margin-top: 2rem; text-align: center; color: #64748b; font-size: 0.85rem; border-top: 1px dashed #cbd5e1; padding-top: 1.5rem;">
-        <i class="fas fa-rotate"></i> live demo – all metrics are illustrative · hover cards for effect
-    </div>
-</div>
+    <script>
+        // Initialize the BTRC Reporting screen
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle sidebar on mobile
+            document.querySelector('.menu-toggle').addEventListener('click', function() {
+                document.querySelector('.sidebar').classList.toggle('active');
+            });
+            
+            // Filter dropdown functionality
+            document.querySelector('.filter-button').addEventListener('click', function() {
+                document.querySelector('.filter-options').classList.toggle('active');
+            });
+            
+            // Close filter options when clicking elsewhere
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.filter-dropdown')) {
+                    document.querySelector('.filter-options').classList.remove('active');
+                }
+            });
+            
+            // Export options functionality
+            document.querySelector('.export-button').addEventListener('click', function() {
+                document.querySelector('.export-menu').classList.toggle('active');
+            });
+            
+            // Close export menu when clicking elsewhere
+            document.addEventListener('click', function(e) {
+                if (!e.target.closest('.export-options')) {
+                    document.querySelector('.export-menu').classList.remove('active');
+                }
+            });
+            
+            // Initialize charts
+            const subscriberCtx = document.getElementById('subscriberChart').getContext('2d');
+            const subscriberChart = new Chart(subscriberCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Q1 2022', 'Q2 2022', 'Q3 2022', 'Q4 2022', 'Q1 2023', 'Q2 2023'],
+                    datasets: [{
+                        label: 'Total Subscribers',
+                        data: [18000, 19500, 21000, 22500, 23500, 24589],
+                        backgroundColor: '#273073',
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            const serviceCtx = document.getElementById('serviceChart').getContext('2d');
+            const serviceChart = new Chart(serviceCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['FTTH', 'Broadband', 'Corporate'],
+                    datasets: [{
+                        data: [45, 35, 20],
+                        backgroundColor: [
+                            '#273073',
+                            '#3B82F6',
+                            '#22C55E'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+            
+            const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+            const revenueChart = new Chart(revenueCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Q1 2022', 'Q2 2022', 'Q3 2022', 'Q4 2022', 'Q1 2023', 'Q2 2023'],
+                    datasets: [{
+                        label: 'Revenue (in ৳)',
+                        data: [8500000, 9200000, 9800000, 10500000, 11600000, 12500000],
+                        borderColor: '#273073',
+                        backgroundColor: 'rgba(39, 48, 115, 0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: {
+                                drawBorder: false
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Generate report button
+            document.querySelector('.btn-primary').addEventListener('click', function() {
+                alert('Generating BTRC report for Q2 2023...');
+                // In a real application, this would trigger an API call to generate the report
+            });
+            
+            // Export options
+            document.querySelectorAll('.export-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const format = this.querySelector('span').textContent;
+                    alert(`Exporting report as ${format} format...`);
+                    document.querySelector('.export-menu').classList.remove('active');
+                });
+            });
+            
+            // Manual adjustment inputs - show that they're editable
+            document.querySelectorAll('.adjustment-input').forEach(input => {
+                input.addEventListener('change', function() {
+                    console.log('Package adjustment changed:', this.value);
+                    // In a real app, this would update the report preview
+                });
+            });
+        });
+    </script>
 </body>
 </html>
